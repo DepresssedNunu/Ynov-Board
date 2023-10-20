@@ -9,10 +9,10 @@ public class Card {
     public DateTime CreationDate { get; protected set; }
     public int BoardId { get; set; }
     
-    public Card(string name, string description, int id)
+    public Card(string name, string description, int boardId)
     {
         Id = CardIdCounter++;
-        BoardId = id;
+        BoardId = boardId;
         Name = name;
         Description = description;
         CreationDate = DateTime.Now;

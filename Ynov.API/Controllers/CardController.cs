@@ -13,21 +13,13 @@ public class CardController : ControllerBase
     {
         _logger = logger;
     }
-    
+
     //Get all cards
     [HttpGet("/card/all")]
     public ActionResult<Board> GetCard()
     {
         var data = BoardList.listBoard
-            .Select(board => board.CardList
-                .Select(card => new
-                {
-                    card.BoardId,
-                    card.Id,
-                    card.Name,
-                    card.Description,
-                    card.CreationDate,
-                }).ToList())
+            .Select(board => board.CardList)
             .ToList();
 
         return Ok(data);
@@ -35,20 +27,19 @@ public class CardController : ControllerBase
 
 
     // Get a specific card
-    [HttpGet("Board/{id}/listCard/")]
+    [HttpGet("/card/{id}")]
     public ActionResult<Board> GetCard(int id)
     {
-        if (id > BoardList.listBoard.Count)
+        var data = BoardList.listBoard
+            .SelectMany(board => board.CardList)
+            .FirstOrDefault(card => card.Id == id);
+
+        if (data == null)
         {
-            NotFound($"The board number {id} wasn't found ");
+            return NotFound($"Card with ID {id} wasn't found.");
         }
 
-        var board = BoardList.listBoard[id];
-        var cardInfo = board.CardList
-            .Select(card => $"{card.Name} : {card.Description}")
-            .ToList();
-
-        return Ok($"List of Cards of the Board {board.Name}:\n" + string.Join("\n", cardInfo));
+        return Ok(data);
     }
 
 
@@ -71,25 +62,28 @@ public class CardController : ControllerBase
 
 
     // DELETE CARD with description and name to a specific board
-    [HttpDelete("card/delete/")]
-    public ActionResult<Board> DeleteCard(int id, string name)
+    [HttpDelete("card/{id}/delete/")]
+    public ActionResult<Board> DeleteCard(int id)
     {
-        if (id > BoardList.listBoard.Count)
+        //Get the board contenting the card
+        var boardWithCard = BoardList.listBoard
+            .FirstOrDefault(board => board.CardList
+                .Any(card => card.Id == id));
+
+        // check if the card {id} exists
+        if (boardWithCard == null)
         {
-            return NotFound($"The board number {id} wasn't found ");
-        } //check if the board exist
-
-        Board currentBoard = BoardList.listBoard[id];
-
-        if (currentBoard.CardList.Count == 0)
+            return NotFound($"Card with ID {id} wasn't found.");
+        }
+        
+        var cardToDelete = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
+        
+        if (cardToDelete != null)
         {
-            return NotFound($"The board number {id} has no card");
-        } //check if the board has cards
-
-        var card = currentBoard.CardList.Find(card => card.Name == name); //find the card with the name
-        return (card == null)
-            ? NotFound($"The card {name} wasn't found")
-            : Ok($"Card {card.Name} has been Removed !" + currentBoard.CardList.Remove(card));
+            boardWithCard.CardList.Remove(cardToDelete);
+            return Ok($"Card with ID {id} has been deleted.");
+        }
+        return NotFound($"Card with ID {id} wasn't found.");
     }
 
     //update card description

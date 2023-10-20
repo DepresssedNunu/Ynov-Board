@@ -34,7 +34,7 @@ public class BoardController : ControllerBase
     }
 
     //Get a specific board
-    [HttpGet("/board{id}")]
+    [HttpGet("/board/{id}")]
     public ActionResult<Board> Get(int id)
     {
         if (id > BoardList.listBoard.Count)
@@ -68,7 +68,7 @@ public class BoardController : ControllerBase
     }
 
     //Update the name of a board
-    [HttpPost("/update{id}/")]
+    [HttpPost("/update/{id}/")]
     public ActionResult<Board> Modify(int id, string name)
     {
         return (id > BoardList.listBoard.Count)
@@ -77,7 +77,7 @@ public class BoardController : ControllerBase
     }
 
     //Delete a board
-    [HttpDelete("/board{id}/delete/")]
+    [HttpDelete("/board/{id}/delete/")]
     public ActionResult<Board> Delete(int id)
     {
         if (id > BoardList.listBoard.Count)
