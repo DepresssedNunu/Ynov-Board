@@ -61,7 +61,7 @@ public class CardController : ControllerBase
     }
 
 
-    // DELETE CARD with description and name to a specific board
+    // DELETE CARD
     [HttpDelete("card/{id}/delete/")]
     public ActionResult<Board> DeleteCard(int id)
     {
