@@ -17,4 +17,5 @@ public class Card {
         Description = description;
         CreationDate = DateTime.Now;
     }
+    
 }

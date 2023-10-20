@@ -66,9 +66,7 @@ public class CardController : ControllerBase
     public ActionResult<Board> DeleteCard(int id)
     {
         //Get the board contenting the card
-        var boardWithCard = BoardList.listBoard
-            .FirstOrDefault(board => board.CardList
-                .Any(card => card.Id == id));
+        var boardWithCard = Board.GetBoard(id);
 
         // check if the card {id} exists
         if (boardWithCard == null)
@@ -76,66 +74,86 @@ public class CardController : ControllerBase
             return NotFound($"Card with ID {id} wasn't found.");
         }
         
-        var cardToDelete = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
+        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
         
-        if (cardToDelete != null)
+        if (card != null)
         {
-            boardWithCard.CardList.Remove(cardToDelete);
+            boardWithCard.CardList.Remove(card);
             return Ok($"Card with ID {id} has been deleted.");
         }
         return NotFound($"Card with ID {id} wasn't found.");
     }
 
     //update card description
-    [HttpPost("card/update/")]
-    public ActionResult<Board> ModifyCard(int id, string name, string description)
+    [HttpPatch("card/{id}/update/description/")]
+    public ActionResult<Board> ModifyCardDescription(int id, string description)
     {
-        if (id > BoardList.listBoard.Count)
+        //Get the board contenting the card
+        var boardWithCard = Board.GetBoard(id);
+
+        // check if the card {id} exists
+        if (boardWithCard == null)
         {
-            return NotFound($"The board number {id} wasn't found ");
-        } //check if the board exist
+            return NotFound($"Card with ID {id} wasn't found.");
+        }
 
-        Board currentBoard = BoardList.listBoard[id];
-
-        if (currentBoard.CardList.Count == 0)
-        {
-            return NotFound($"The board number {id} has no card");
-        } //check if the board has cards
-
-        var card = currentBoard.CardList.Find(card => card.Name == name); //find the card with the name
+        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
 
         if (card == null)
         {
-            return NotFound($"The card {name} wasn't found");
+            return NotFound($"The card {id} wasn't found");
         }
 
         card.Description = description;
         return Ok($"Card {card.Name} has been modified !");
     }
+    
+    //update card name
+    [HttpPatch("card/{id}/update/title/")]
+    public ActionResult<Board> ModifyCardName(int id, string name)
+    {
+        //Get the board contenting the card
+        var boardWithCard = Board.GetBoard(id);
+
+        // check if the card {id} exists
+        if (boardWithCard == null)
+        {
+            return NotFound($"Card with ID {id} wasn't found.");
+        }
+
+        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
+
+        if (card == null)
+        {
+            return NotFound($"The card {id} wasn't found");
+        }
+
+        card.Name = name;
+        return Ok($"Card {card.Id} has been modified !");
+    }
 
     //Modify card name AND description
     [HttpPost("card/modify/")]
-    public ActionResult<Board> ModifyCard(int id, string name, string description, string newName)
+    public ActionResult<Board> ModifyCard(int id, string name, string description)
     {
-        if (id > BoardList.listBoard.Count)
-        {
-            return NotFound($"The board number {id} wasn't found ");
-        } //check if the board exist
+        //Get the board contenting the card
+        var boardWithCard = Board.GetBoard(id);
 
-        Board currentBoard = BoardList.listBoard[id];
-        if (currentBoard.CardList.Count == 0)
+        // check if the card {id} exists
+        if (boardWithCard == null)
         {
-            return NotFound($"The board number {id} has no card");
-        } //check if the board has cards
+            return NotFound($"Card with ID {id} wasn't found.");
+        }
 
-        var card = currentBoard.CardList.Find(card => card.Name == name); //find the card with the name
+        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
+
         if (card == null)
         {
-            return NotFound($"The card {name} wasn't found");
+            return NotFound($"The card {id} wasn't found");
         }
 
         card.Description = description;
-        card.Name = newName;
-        return Ok($"Card {card.Name} has been modified !");
+        card.Name = name;
+        return Ok($"Card {card.Id} has been modified !");
     }
 }

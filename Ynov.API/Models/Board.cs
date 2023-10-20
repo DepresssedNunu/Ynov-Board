@@ -13,4 +13,13 @@ public class Board {
         Id = IdCounter++;
         BoardList.listBoard.Add(this);
     }
+
+    public static Board GetBoard(int id)
+    {
+        var boardWithCard = BoardList.listBoard
+            .FirstOrDefault(board => board.CardList
+                .Any(card => card.Id == id));
+
+        return boardWithCard;
+    }
 }
