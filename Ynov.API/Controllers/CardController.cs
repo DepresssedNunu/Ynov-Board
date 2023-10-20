@@ -5,11 +5,11 @@ namespace Ynov.API.Controllers;
 
 [ApiController]
 [Route("/card")]
-public class CardContoller : ControllerBase
+public class CardController : ControllerBase
 {
-    private readonly ILogger<CardContoller> _logger;
+    private readonly ILogger<CardController> _logger;
 
-    public CardContoller(ILogger<CardContoller> logger)
+    public CardController(ILogger<CardController> logger)
     {
         _logger = logger;
     }
