@@ -5,7 +5,9 @@ public class Card {
     public string Description { get;  set; }
     public DateTime CreationDate { get; protected set; }
     
-    public Card(string name, string description) {
+    public int boardId { get; set; }
+    public Card(string name, string description, int id) {
+        boardId = id;
         Name = name;
         Description = description;
         CreationDate = DateTime.Now;
