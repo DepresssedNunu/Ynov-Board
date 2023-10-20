@@ -1,0 +1,132 @@
+# .NET Core and .NET 5+
+bin/
+obj/
+**/wwwroot/lib/
+
+# Rider
+.idea/
+*.sln.iml
+*.DotSettings.user
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon 
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Windows
+*.dll
+*.exe
+*.winmd
+*.pri
+*.pdb
+*.apsym
+
+# User-specific files
+*.rsuser
+*.user
+*.userosscache
+*.suo
+*.svclog
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Unit test .coverage files
+*.dotCover
+
+# Temporary files
+*.log
+*.tmp
+*.tmp_proj
+
+# NuGet
+*.nupkg
+*.nuget.props
+*.nuget.targets
+
+# R# backup & report files
+*_i.c
+*_p.c
+*_i.h
+*_p.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Others
+*.bak
+*.cache
+*.ci
+*.diff
+*.doc
+*.docx
+*.draft
+*.dwl
+*.dwl2
+*.dylib
+*.exe
+*.h
+*.ilk
+*.lib
+*.log
+*.mdb
+*.ncb
+*.old
+*.orig
+*.pdf
+*.pdb
+*.pp
+*.rar
+*.rpt
+*.sbr
+*.scc
+*.sol
+*.sql
+*.sqlite
+*.swp
+*.tar
+*.vssscc
+*.xls
+*.xlsx
+*.zip
+*.z
+*.7z
