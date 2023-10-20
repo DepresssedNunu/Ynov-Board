@@ -8,6 +8,13 @@ namespace Ynov.API.Controllers;
     
 public class BoardController : ControllerBase { //make sure the boardController is a child of ControllerBase
     
+    private readonly ILogger<BoardController> _logger;
+
+    public BoardController(ILogger<BoardController> logger)
+    {
+        _logger = logger;
+    }
+
     //----------------------Board Part----------------------
     
     
@@ -51,6 +58,8 @@ public class BoardController : ControllerBase { //make sure the boardController 
         return (id > BoardList.listBoard.Count) ? NotFound($"The board number {id} wasn't found ") :  Ok(BoardList.listBoard[id].Name = name);
     }
     
+    
+    
     //Delete a board
     [HttpDelete("delete/{id}")]
     public ActionResult<Board> Delete(int id)
@@ -69,10 +78,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     //----------------------Card Part----------------------
     
-    
-    
-    
-    //NEED TO WORK ON THIS CODE SINCE IT DOESNT WORK
+    //TODO: NEED TO WORK ON THIS CODE SINCE IT DOESNT WORK
     [HttpGet("listBoard/listCard")]
     public ActionResult<Board> GetCard()
     {
@@ -130,24 +136,24 @@ public class BoardController : ControllerBase { //make sure the boardController 
         var card = currentBoard.CardList.Find(card => card.Name == name); //find the card with the name
         return (card == null) ? NotFound($"The card {name} wasn't found") : Ok($"Card {card.Name} has been Removed !" + currentBoard.CardList.Remove(card));
     }
-    
+
     //update card description
     [HttpPost("listBoard/{id}/listCard/update/{name}/{description}")]
     public ActionResult<Board> ModifyCard(int id, string name, string description)
     {
         if (id > BoardList.listBoard.Count) { return NotFound($"The board number {id} wasn't found "); } //check if the board exist
         Board currentBoard = BoardList.listBoard[id];
-        
+
         if (currentBoard.CardList.Count == 0) { return NotFound($"The board number {id} has no card"); } //check if the board has cards
-        
+
         var card = currentBoard.CardList.Find(card => card.Name == name); //find the card with the name
-        
+
         if (card == null) { return NotFound($"The card {name} wasn't found"); }
 
         card.Description = description;
         return Ok($"Card {card.Name} has been modified !");
     }
-    
+
     //Modify card name AND description
     [HttpPost("listBoard/{id}/listCard/modify/{name}/")]
     public ActionResult<Board> ModifyCard(int id, string name, string description, string newName)
@@ -161,6 +167,6 @@ public class BoardController : ControllerBase { //make sure the boardController 
         card.Name = newName;
         return Ok($"Card {card.Name} has been modified !");
     }
-    
+
     //
 }

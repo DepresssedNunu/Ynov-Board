@@ -9,7 +9,13 @@ namespace Ynov.API.Controllers;
 public class TodoItemController : ControllerBase 
 {
     static List<TodoItem> todoItems = new();
-        
+    
+    private readonly ILogger<TodoItemController> _logger;
+
+    public TodoItemController(ILogger<TodoItemController> logger)
+    {
+        _logger = logger;
+    }
         
     [HttpGet("items")]
     public ActionResult<TodoItem> Get()
