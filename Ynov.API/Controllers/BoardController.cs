@@ -41,7 +41,22 @@ public class BoardController : ControllerBase
         {
             return NotFound($"The board number {id} wasn't found ");
         }
-        return Ok(BoardList.listBoard[id]);
+        
+        var data = BoardList.listBoard
+            .Where(board => board.Id == id)
+            .Select(board => new
+        {
+            board.Id,
+            board.Name,
+            Cards = board.CardList.Select(card => new
+            {
+                card.Id,
+                card.Name,
+                card.Description,
+                card.CreationDate,
+            }).ToList()
+        });
+        return Ok(data);
     }
 
     //Add a board

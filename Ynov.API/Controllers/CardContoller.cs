@@ -15,7 +15,7 @@ public class CardContoller : ControllerBase
     }
     
     //Get all cards
-    [HttpGet("/all")]
+    [HttpGet("/card/all")]
     public ActionResult<Board> GetCard()
     {
         var data = BoardList.listBoard
@@ -34,7 +34,7 @@ public class CardContoller : ControllerBase
     }
 
 
-    // GET CARD with description and name to a specific board
+    // Get a specific card
     [HttpGet("Board/{id}/listCard/")]
     public ActionResult<Board> GetCard(int id)
     {

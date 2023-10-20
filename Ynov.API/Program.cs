@@ -1,3 +1,5 @@
+using Ynov.API;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +17,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+Init.Test();
 
 app.UseHttpsRedirection();
 
