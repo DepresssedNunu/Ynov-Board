@@ -61,7 +61,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     //Delete a board
-    [HttpDelete("delete/")]
+    [HttpDelete("board/delete/")]
     public ActionResult<Board> Delete(int id)
     {
         if (id > BoardList.listBoard.Count)
@@ -79,23 +79,22 @@ public class BoardController : ControllerBase { //make sure the boardController 
     //----------------------Card Part----------------------
     
     //TODO: NEED TO WORK ON THIS CODE SINCE IT DOESNT WORK
-    [HttpGet("/listAllCard")]
+    [HttpGet("Board/listCard/")]
     public ActionResult<Board> GetCard()
     {
         var cardInfo = BoardList.listBoard
             .Select(board => board.CardList
-                .Select(card => $"{card.Name} : {card.Description}")
+                .Select(card => $"Board {card.boardId} |  {card.Name} : {card.Description}")
                 .ToList())
             .ToList();
-        string result = "List of Cards of all Boards:\n" + string.Join("\n", cardInfo);
-        return Ok(result);
+
+        return Ok(cardInfo);
     }
     
     
     
-    
     // GET CARD with description and name to a specific board
-    [HttpGet("Board/{id}/listCard")]
+    [HttpGet("Board/{id}/listCard/")]
     public ActionResult<Board> GetCard(int id){   
         if (id > BoardList.listBoard.Count)
         {
@@ -116,10 +115,11 @@ public class BoardController : ControllerBase { //make sure the boardController 
     public ActionResult<Board> AddCard(int id, string description, string name){
         
         if (id > BoardList.listBoard.Count - 1) { return NotFound($"The board number {id} wasn't found "); } //check if the board exist
+        Board currentBoard = BoardList.listBoard[id]; 
         
-        BoardList.listBoard[id].CardList.Add(new Card(name, description)); //add the card to the board
+        currentBoard.CardList.Add(new Card(name, description, currentBoard.Id)); //add the card to the board
         
-        return Ok("Card added: " + BoardList.listBoard[id].CardList[^1].Name + ": " + BoardList.listBoard[id].CardList[^1].Description); //return the last card added
+        return Ok("Card added: " + currentBoard.CardList[^1].Name + ": " + currentBoard.CardList[^1].Description); //return the last card added
     }
     
     
