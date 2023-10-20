@@ -4,7 +4,7 @@ using Ynov.API.Models;
 namespace Ynov.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/")]
     
 public class BoardController : ControllerBase { //make sure the boardController is a child of ControllerBase
     
@@ -20,7 +20,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     //Get all boards
-    [HttpGet("List")]
+    [HttpGet("Board/List")]
     public ActionResult<Board> Get()
     {
         return Ok(BoardList.listBoard);
@@ -29,7 +29,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     //Get a specific board
-    [HttpGet("{id}")]
+    [HttpGet("Board/{id}")]
     public ActionResult<Board> Get(int id)
     {
         if (id > BoardList.listBoard.Count)
@@ -42,7 +42,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     //Add a board
-    [HttpPost("add/{name}")]
+    [HttpPost("Board/add/{name}")]
     public ActionResult<Board> Get(string name)
     {
         Board board = new Board(name);
@@ -52,7 +52,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     //Update the name of a board
-    [HttpPost("update/{id}/{name}")]
+    [HttpPost("Board/update/")]
     public ActionResult<Board> Modify(int id, string name)
     {
         return (id > BoardList.listBoard.Count) ? NotFound($"The board number {id} wasn't found ") :  Ok(BoardList.listBoard[id].Name = name);
@@ -61,7 +61,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     //Delete a board
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("delete/")]
     public ActionResult<Board> Delete(int id)
     {
         if (id > BoardList.listBoard.Count)
@@ -79,7 +79,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     //----------------------Card Part----------------------
     
     //TODO: NEED TO WORK ON THIS CODE SINCE IT DOESNT WORK
-    [HttpGet("listBoard/listCard")]
+    [HttpGet("/listAllCard")]
     public ActionResult<Board> GetCard()
     {
         var cardInfo = BoardList.listBoard
@@ -95,7 +95,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     // GET CARD with description and name to a specific board
-    [HttpGet("listBoard/{id}/listCard")]
+    [HttpGet("Board/{id}/listCard")]
     public ActionResult<Board> GetCard(int id){   
         if (id > BoardList.listBoard.Count)
         {
@@ -112,7 +112,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     // ADD CARD with description and name to a specific board
-    [HttpPost("Card/add/")]
+    [HttpPost("card/add/")]
     public ActionResult<Board> AddCard(int id, string description, string name){
         
         if (id > BoardList.listBoard.Count - 1) { return NotFound($"The board number {id} wasn't found "); } //check if the board exist
@@ -125,7 +125,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     // DELETE CARD with description and name to a specific board
-    [HttpDelete("listBoard/{id}/listCard/delete/{name}")]
+    [HttpDelete("card/delete/")]
     public ActionResult<Board> DeleteCard(int id, string name)
     {
         if (id > BoardList.listBoard.Count) { return NotFound($"The board number {id} wasn't found "); } //check if the board exist
@@ -138,7 +138,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     }
 
     //update card description
-    [HttpPost("listBoard/{id}/listCard/update/{name}/{description}")]
+    [HttpPost("card/update/")]
     public ActionResult<Board> ModifyCard(int id, string name, string description)
     {
         if (id > BoardList.listBoard.Count) { return NotFound($"The board number {id} wasn't found "); } //check if the board exist
@@ -155,7 +155,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     }
 
     //Modify card name AND description
-    [HttpPost("listBoard/{id}/listCard/modify/{name}/")]
+    [HttpPost("card/modify/")]
     public ActionResult<Board> ModifyCard(int id, string name, string description, string newName)
     {
         if (id > BoardList.listBoard.Count) { return NotFound($"The board number {id} wasn't found "); } //check if the board exist
