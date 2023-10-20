@@ -112,7 +112,7 @@ public class BoardController : ControllerBase { //make sure the boardController 
     
     
     // ADD CARD with description and name to a specific board
-    [HttpPost("listBoard/{id}/listCard/add/{name}/{description}")]
+    [HttpPost("Card/add/")]
     public ActionResult<Board> AddCard(int id, string description, string name){
         
         if (id > BoardList.listBoard.Count - 1) { return NotFound($"The board number {id} wasn't found "); } //check if the board exist
