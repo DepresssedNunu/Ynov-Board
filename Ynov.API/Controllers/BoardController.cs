@@ -15,7 +15,7 @@ public class BoardController : ControllerBase
     }
 
     //Get all boards
-    [HttpGet("Board/all")]
+    [HttpGet("/board/all")]
     public ActionResult<Board> Get()
     {
         var data = BoardList.listBoard.Select(board => new
@@ -34,19 +34,18 @@ public class BoardController : ControllerBase
     }
 
     //Get a specific board
-    [HttpGet("Board/{id}")]
+    [HttpGet("/board{id}")]
     public ActionResult<Board> Get(int id)
     {
         if (id > BoardList.listBoard.Count)
         {
             return NotFound($"The board number {id} wasn't found ");
         }
-
         return Ok(BoardList.listBoard[id]);
     }
 
     //Add a board
-    [HttpPost("Board/add/{name}")]
+    [HttpPost("/add/{name}")]
     public ActionResult<Board> Get(string name)
     {
         Board board = new Board(name);
@@ -54,7 +53,7 @@ public class BoardController : ControllerBase
     }
 
     //Update the name of a board
-    [HttpPost("Board/update/")]
+    [HttpPost("/update{id}/")]
     public ActionResult<Board> Modify(int id, string name)
     {
         return (id > BoardList.listBoard.Count)
@@ -63,7 +62,7 @@ public class BoardController : ControllerBase
     }
 
     //Delete a board
-    [HttpDelete("board/delete/")]
+    [HttpDelete("/board{id}/delete/")]
     public ActionResult<Board> Delete(int id)
     {
         if (id > BoardList.listBoard.Count)
