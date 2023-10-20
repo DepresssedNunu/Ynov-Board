@@ -437,19 +437,19 @@
     ]
   },
   "packageFolders": {
-    "/home/nunu/.nuget/packages/": {}
+    "/Users/flo/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/nunu/Documents/Ynov-Board/Ynov.API/Ynov.API.csproj",
+      "projectUniqueName": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/Ynov.API.csproj",
       "projectName": "Ynov.API",
-      "projectPath": "/home/nunu/Documents/Ynov-Board/Ynov.API/Ynov.API.csproj",
-      "packagesPath": "/home/nunu/.nuget/packages/",
-      "outputPath": "/home/nunu/Documents/Ynov-Board/Ynov.API/obj/",
+      "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/Ynov.API.csproj",
+      "packagesPath": "/Users/flo/.nuget/packages/",
+      "outputPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/nunu/.nuget/NuGet/NuGet.Config"
+        "/Users/flo/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -484,8 +484,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -497,7 +496,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/nix/store/2mrai2hihgxfxs425yb8xvgsi80nzf7r-dotnet-sdk-6.0.413/sdk/6.0.413/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }

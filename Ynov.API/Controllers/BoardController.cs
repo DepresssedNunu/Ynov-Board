@@ -8,9 +8,14 @@ namespace Ynov.API.Controllers;
     
 public class BoardController : ControllerBase { //make sure the boardController is a child of ControllerBase
     
+    private readonly ILogger<BoardController> _logger;
+
+    public BoardController(ILogger<BoardController> logger)
+    {
+        _logger = logger;
+    }
+    
     //----------------------Board Part----------------------
-    
-    
     
     //Get all boards
     [HttpGet("List")]
@@ -18,8 +23,6 @@ public class BoardController : ControllerBase { //make sure the boardController 
     {
         return Ok(BoardList.listBoard);
     }
-    
-    
     
     //Get a specific board
     [HttpGet("{id}")]
@@ -32,8 +35,6 @@ public class BoardController : ControllerBase { //make sure the boardController 
         return Ok(BoardList.listBoard[id]);
     }
     
-    
-    
     //Add a board
     [HttpPost("add/{name}")]
     public ActionResult<Board> Get(string name)
@@ -42,16 +43,12 @@ public class BoardController : ControllerBase { //make sure the boardController 
         return Ok("Board added: " + board.Name);
     }
     
-    
-    
     //Modify the name of a board
     [HttpPost("modify/{id}/{name}")]
     public ActionResult<Board> Modify(int id, string name)
     {
         return (id > BoardList.listBoard.Count) ? NotFound($"The board number {id} wasn't found ") :  Ok(BoardList.listBoard[id].Name = name);
     }
-    
-    
     
     //Delete a board
     [HttpDelete("delete/{id}")]
@@ -67,14 +64,9 @@ public class BoardController : ControllerBase { //make sure the boardController 
         return Ok("Board deleted:" + currentBoard.Name);
     }
     
-    
-    
     //----------------------Card Part----------------------
     
-    
-    
-    
-    //NEED TO WORK ON THIS CODE SINCE IT DOESNT WORK
+    //TODO: NEED TO WORK ON THIS CODE SINCE IT DOESNT WORK
     [HttpGet("listBoard/listCard")]
     public ActionResult<Board> GetCard()
     {
@@ -86,8 +78,6 @@ public class BoardController : ControllerBase { //make sure the boardController 
         string result = "List of Cards of all Boards:\n" + string.Join("\n", cardInfo);
         return Ok(result);
     }
-    
-    
     
     
     // GET CARD with description and name to a specific board
@@ -105,8 +95,6 @@ public class BoardController : ControllerBase { //make sure the boardController 
         return Ok($"List of Cards of the Board {board.Name}:\n" + string.Join("\n", cardInfo));
     }
     
-    
-    
     // ADD CARD with description and name to a specific board
     [HttpPost("listBoard/{id}/listCard/add/{name}/{description}")]
     public ActionResult<Board> AddCard(int id, string description, string name){
@@ -117,8 +105,6 @@ public class BoardController : ControllerBase { //make sure the boardController 
         
         return Ok("Card added: " + BoardList.listBoard[id].CardList[^1].Name + ": " + BoardList.listBoard[id].CardList[^1].Description); //return the last card added
     }
-    
-    
     
     // DELETE CARD with description and name to a specific board
     [HttpDelete("listBoard/{id}/listCard/delete/{name}")]
