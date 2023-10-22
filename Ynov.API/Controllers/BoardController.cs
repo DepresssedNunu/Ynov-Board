@@ -18,7 +18,7 @@ public class BoardController : ControllerBase
     [HttpGet("/board/all")]
     public ActionResult<Board> Get()
     {
-        var data = BoardList.listBoard.Select(board => new
+        var data = BoardList.ListBoard.Select(board => new
         {
             board.Id,
             board.Name,
@@ -37,12 +37,12 @@ public class BoardController : ControllerBase
     [HttpGet("/board/{id}")]
     public ActionResult<Board> Get(int id)
     {
-        if (id > BoardList.listBoard.Count)
+        if (id > BoardList.ListBoard.Count)
         {
             return NotFound($"The board number {id} wasn't found ");
         }
         
-        var data = BoardList.listBoard
+        var data = BoardList.ListBoard
             .Where(board => board.Id == id)
             .Select(board => new
         {
@@ -71,22 +71,22 @@ public class BoardController : ControllerBase
     [HttpPost("/update/{id}/")]
     public ActionResult<Board> Modify(int id, string name)
     {
-        return (id > BoardList.listBoard.Count)
+        return (id > BoardList.ListBoard.Count)
             ? NotFound($"The board number {id} wasn't found ")
-            : Ok(BoardList.listBoard[id].Name = name);
+            : Ok(BoardList.ListBoard[id].Name = name);
     }
 
     //Delete a board
     [HttpDelete("/board/{id}/delete/")]
     public ActionResult<Board> Delete(int id)
     {
-        if (id > BoardList.listBoard.Count)
+        if (id > BoardList.ListBoard.Count)
         {
             return NotFound($"The board number {id} wasn't found ");
         }
 
-        Board currentBoard = BoardList.listBoard[id];
-        BoardList.listBoard.RemoveAt(id);
+        Board currentBoard = BoardList.ListBoard[id];
+        BoardList.ListBoard.RemoveAt(id);
         return Ok("Board deleted:" + currentBoard.Name);
     }
 }

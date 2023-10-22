@@ -18,7 +18,7 @@ public class CardController : ControllerBase
     [HttpGet("/card/all")]
     public ActionResult<Board> GetCard()
     {
-        var data = BoardList.listBoard
+        var data = BoardList.ListBoard
             .Select(board => board.CardList)
             .ToList();
 
@@ -30,7 +30,7 @@ public class CardController : ControllerBase
     [HttpGet("/card/{id}")]
     public ActionResult<Board> GetCard(int id)
     {
-        var data = BoardList.listBoard
+        var data = BoardList.ListBoard
             .SelectMany(board => board.CardList)
             .FirstOrDefault(card => card.Id == id);
 
@@ -47,12 +47,12 @@ public class CardController : ControllerBase
     [HttpPost("card/add/")]
     public ActionResult<Board> AddCard(int id, string description, string name)
     {
-        if (id > BoardList.listBoard.Count - 1)
+        if (id > BoardList.ListBoard.Count - 1)
         {
             return NotFound($"The board number {id} wasn't found ");
         } //check if the board exist
 
-        Board currentBoard = BoardList.listBoard[id];
+        Board currentBoard = BoardList.ListBoard[id];
 
         currentBoard.CardList.Add(new Card(name, description, currentBoard.Id)); //add the card to the board
 
