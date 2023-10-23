@@ -1,0 +1,117 @@
+*{
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    justify-content: center;
+    
+}
+
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 6rem;
+    /* for Developpement only */
+    background-color: gray;
+    border: none;
+    width: 100%;
+}
+    
+/* Item in div */
+#navbar>* {
+    margin-inline: 3rem;
+}
+
+#title {
+    font-size: 30px;
+    font-family: "Roboto Light";
+    font-weight: bold;
+}
+
+.button {
+    padding-inline: 1%;
+    border-radius: 50px;
+    font-weight: bold;
+    color: black;
+    font-size: 1rem;
+    border: none;
+    margin-inline: 0.3rem;
+}
+
+.modify-button {
+    background-color: orange;
+}
+
+.delete-button {
+    background-color: red;
+}
+
+.add-button {
+    background-color: green;
+}
+
+
+#nameForm {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    margin-top: 4.7rem;
+    height: 2rem;
+    padding: 40px 20px 40px 20px;
+    background-color: white;
+    border: none;
+    border-radius: 0 0 10px 10px;
+}
+
+#main-console {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+#center-add-button {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+
+#modal {
+    display: grid;
+    font-family: "Roboto", serif;
+    margin-top: 5%;
+    grid-template-columns: repeat(4, 20rem);
+    gap: 100px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: gray;
+    max-width: 20rem;
+    min-height: 25rem;
+    border-radius: 12px;
+}
+
+.card {
+    background-color: #fffcfc;
+    color: black;
+    border-radius: 15px;
+    padding-inline:4rem ;
+    padding-block: 1.5rem;
+}
+
+#barre {
+    margin: auto;
+    background-color: black ;
+    height: 80px;
+    width: .1%;
+}

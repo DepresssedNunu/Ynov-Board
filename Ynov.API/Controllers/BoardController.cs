@@ -31,7 +31,7 @@ public class BoardController : ControllerBase
             }).ToList()
         });
         return Ok(data);
-    }
+    }   
 
     //Get a specific board
     [HttpGet("/board/{id}")]
