@@ -44,7 +44,7 @@ public class CardController : ControllerBase
     }
 
     // ADD CARD with description and name to a specific board
-    [HttpPost("card/add/")]
+    [HttpPost("/card/add/")]
     public ActionResult<Board> AddCard([FromBody] CardInputModel cardInput)
     {
         if (cardInput.BoardId > BoardList.listBoard.Count - 1)
@@ -61,7 +61,7 @@ public class CardController : ControllerBase
     }
 
     // DELETE CARD
-    [HttpDelete("card/{id}/delete/")]
+    [HttpDelete("/card/{id}/delete/")]
     public ActionResult<Board> DeleteCard(int id)
     {
         //Get the board contenting the card
@@ -84,7 +84,7 @@ public class CardController : ControllerBase
     }
 
     //update card description
-    [HttpPatch("card/{id}/update/description/")]
+    [HttpPatch("/card/{id}/update/description/")]
     public ActionResult<Board> ModifyCardDescription(int id, [FromBody] string description)
     {
         //Get the board contenting the card
@@ -108,7 +108,7 @@ public class CardController : ControllerBase
     }
     
     //update card name
-    [HttpPatch("card/{id}/update/title/")]
+    [HttpPatch("/card/{id}/update/title/")]
     public ActionResult<Board> ModifyCardName(int id, [FromBody] string name)
     {
         //Get the board contenting the card
@@ -132,7 +132,7 @@ public class CardController : ControllerBase
     }
 
     //Modify card name AND description
-    [HttpPut("card/modify/")]
+    [HttpPut("/card/modify/")]
     public ActionResult<Board> ModifyCard([FromBody] CardInputModel model)
     {
         //Get the board contenting the card
