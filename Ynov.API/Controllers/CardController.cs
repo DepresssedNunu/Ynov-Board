@@ -205,4 +205,12 @@ public class CardController : ControllerBase
 
         return board;
     }
+
+    [HttpPatch("/card/{id}/move")]
+    public ActionResult MoveCard(int cardId, [FromBody] int nextId)
+    {
+        
+        
+        return Ok()
+    }
 }
