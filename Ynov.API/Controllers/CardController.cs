@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Ynov.API.DTOitem;
 using Ynov.API.Models;
 
 namespace Ynov.API.Controllers;
@@ -158,7 +159,7 @@ public class CardController : ControllerBase
         return Ok($"Card {card.Id} has been modified !");
     }
 
-    [HttpPatch("{id}/update/board/")]
+    [HttpPatch("{id}/move")]
     public ActionResult ModifyCardBoard(int id, int newBoardID)
     {
         //Get the board contenting the card
@@ -198,7 +199,7 @@ public class CardController : ControllerBase
     [HttpGet("/card/search")]
     public ActionResult<Board> Search([FromQuery] SearchQuery parameters)
     {
-        var cards = BoardList.listBoard
+        var cards = BoardController.ListBoard
             .SelectMany(board => board.CardList) // Flatten the list of cards from all boards
             .Where(card => 
                 (string.IsNullOrEmpty(parameters.Title) || card.Name.Contains(parameters.Title, StringComparison.OrdinalIgnoreCase)) &&
@@ -211,37 +212,5 @@ public class CardController : ControllerBase
         }
         
         return Ok(cards);
-    }
-
-    [HttpGet("/card/{id}/sort")]
-    public ActionResult<Board> SortBoard(int boardId, [FromQuery] SortValues query)
-    {
-        Board board = BoardList.listBoard.FirstOrDefault(b => b.Id == boardId);
-        
-        if (board == null)
-        {
-            return NotFound($"The board {boardId} wasn't found");
-        }
-        
-        switch (query)
-        {
-            case SortValues.TitleAscending:
-                board.CardList = board.CardList.OrderBy(card => card.Name).ToList();
-                break;
-            case SortValues.TitleDescending:
-                board.CardList = board.CardList.OrderByDescending(card => card.Name).ToList();
-                break;
-            case SortValues.DateAscending:
-                board.CardList = board.CardList.OrderBy(card => card.CreationDate).ToList();
-                break;
-            case SortValues.DateDescending:
-                board.CardList = board.CardList.OrderByDescending(card => card.CreationDate).ToList();
-                break;
-            
-            default:
-                return BadRequest($"Invalid sort value: {query}");
-        }
-
-        return board;
     }
 }

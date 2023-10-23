@@ -3,9 +3,9 @@ using Ynov.API.Controllers;
 namespace Ynov.API.Models;
 
 public class Board {
-    private static int _idCounter; //keep track of the number of boards
+    private static int _idCounter = 1; //keep track of the number of boards
 
-    public readonly List<Card> CardList = new();
+    public List<Card> CardList = new();
     public string Name { get; protected internal set; }
     internal int Id { get;}
     

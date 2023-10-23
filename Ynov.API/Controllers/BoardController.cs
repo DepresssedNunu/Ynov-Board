@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Ynov.API.DTOitem;
 using Ynov.API.Models;
 
 namespace Ynov.API.Controllers;
 
 [ApiController]
-[Route("/board")]
+[Route("board")]
 public class BoardController : ControllerBase
 {
     
-    public static List<Board> ListBoard = new List<Board>(); //work as the db
+    public static readonly List<Board> ListBoard = new List<Board>(); //work as the db
     
     private readonly ILogger<BoardController> _logger;
 
@@ -18,7 +19,7 @@ public class BoardController : ControllerBase
     }
 
     //Get all boards
-    [HttpGet("/board/all")]
+    [HttpGet("all")]
     public ActionResult<Board> Get()
     {
         var data = ListBoard.Select(board => new
@@ -37,7 +38,7 @@ public class BoardController : ControllerBase
     }   
 
     //Get a specific board
-    [HttpGet("/board/{id}")]
+    [HttpGet("{id}")]
     public ActionResult<Board> Get(int id)
     {
         if (id > ListBoard.Count)
@@ -63,7 +64,7 @@ public class BoardController : ControllerBase
     }
 
     //Add a board
-    [HttpPost("/add")]
+    [HttpPost("add")]
     public ActionResult<Board> Get([FromBody] string name)
     {
         Board board = new Board(name);
@@ -71,14 +72,14 @@ public class BoardController : ControllerBase
     }
 
     //Update the name of a board
-    [HttpPut("/update/{id}/")]
+    [HttpPut("{id}/update")]
     public ActionResult<Board> Modify(int id, [FromBody] string name)
     {
         return (id > ListBoard.Count) ? NotFound($"The board number {id} wasn't found ") : Ok(ListBoard[id].Name = name);
     }
 
     //Delete a board
-    [HttpDelete("/board/{id}/delete/")]
+    [HttpDelete("{id}/delete")]
     public ActionResult<Board> Delete(int id)
     {
         if (id > ListBoard.Count)
@@ -89,6 +90,36 @@ public class BoardController : ControllerBase
         Board currentBoard = ListBoard[id];
         ListBoard.RemoveAt(id);
         return Ok("Board deleted:" + currentBoard.Name);
+    }
+    
+    [HttpGet("{id}/sort")]
+    public ActionResult<Board> SortBoard(int id, [FromQuery] SortValues query)
+    {
+        Board board = BoardController.ListBoard.FirstOrDefault(b => b.Id == id);
+        
+        if (board == null)
+        {
+            return NotFound($"The board {id} wasn't found");
+        }
+        
+        switch (query)
+        {
+            case SortValues.TitleAscending:
+                board.CardList = board.CardList.OrderBy(card => card.Name).ToList();
+                break;
+            case SortValues.TitleDescending:
+                board.CardList = board.CardList.OrderByDescending(card => card.Name).ToList();
+                break;
+            case SortValues.DateAscending:
+                board.CardList = board.CardList.OrderBy(card => card.CreationDate).ToList();
+                break;
+            case SortValues.DateDescending:
+                board.CardList = board.CardList.OrderByDescending(card => card.CreationDate).ToList();
+                break;
+            default:
+                return BadRequest($"Invalid sort value: {query}");
+        }
+        return Ok(board.CardList);
     }
 }
     
