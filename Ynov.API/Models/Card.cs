@@ -1,7 +1,7 @@
 namespace Ynov.API.Models;
 
 public class Card {
-    private static int CardIdCounter = 0;
+    private static int CardIdCounter = 1;
     
     internal int Id { get; set; } 
     public string Name { get; set; }

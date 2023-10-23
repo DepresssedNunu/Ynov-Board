@@ -63,16 +63,16 @@ public class BoardController : ControllerBase
     }
 
     //Add a board
-    [HttpPost("/add/{name}")]
-    public ActionResult<Board> Get(string name)
+    [HttpPost("/add")]
+    public ActionResult<Board> Get([FromBody] string name)
     {
         Board board = new Board(name);
         return Ok("Board added: " + board.Name);
     }
 
     //Update the name of a board
-    [HttpPost("/update/{id}/")]
-    public ActionResult<Board> Modify(int id, string name)
+    [HttpPut("/update/{id}/")]
+    public ActionResult<Board> Modify(int id, [FromBody] string name)
     {
         return (id > ListBoard.Count) ? NotFound($"The board number {id} wasn't found ") : Ok(ListBoard[id].Name = name);
     }
