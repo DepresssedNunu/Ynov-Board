@@ -73,14 +73,15 @@ public class CardController : ControllerBase
         {
             return NotFound($"Card with ID {id} wasn't found.");
         }
-        
+
         var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
-        
+
         if (card != null)
         {
             boardWithCard.CardList.Remove(card);
             return Ok($"Card with ID {id} has been deleted.");
         }
+
         return NotFound($"Card with ID {id} wasn't found.");
     }
 
@@ -107,7 +108,7 @@ public class CardController : ControllerBase
         card.Description = description;
         return Ok($"Card {card.Name} has been modified !");
     }
-    
+
     //update card name
     [HttpPatch("{id}/update/title/")]
     public ActionResult<Board> ModifyCardName(int id, string name)
@@ -133,7 +134,7 @@ public class CardController : ControllerBase
     }
 
     //Modify card name AND description
-    [HttpPost("modify/")]
+    [HttpPut("modify/")]
     public ActionResult<Board> ModifyCard(int id, string name, string description)
     {
         //Get the board contenting the card
@@ -155,5 +156,42 @@ public class CardController : ControllerBase
         card.Description = description;
         card.Name = name;
         return Ok($"Card {card.Id} has been modified !");
+    }
+
+    [HttpPatch("{id}/update/board/")]
+    public ActionResult ModifyCardBoard(int id, int newBoardID)
+    {
+        //Get the board contenting the card
+        var boardWithCard = Board.GetBoard(id);
+
+        // check if the card {id} exists
+        if (boardWithCard == null)
+        {
+            return NotFound($"Card with ID {id} wasn't found.");
+        }
+
+        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
+
+        if (card == null)
+        {
+            return NotFound($"The card {id} wasn't found");
+        }
+
+        //Get the new board
+        var newBoard = BoardController.ListBoard.FirstOrDefault(b => b.Id == newBoardID);
+
+        // check if the board {newID} exists
+        if (newBoard == null)
+        {
+            return NotFound($"Board with ID {newBoardID} wasn't found.");
+        }
+
+        // change the board id of the card
+        card.BoardId = newBoardID;
+
+        boardWithCard.CardList.Remove(card);
+        newBoard.CardList.Add(card);
+
+        return Ok($"The card {id} was move to board {newBoardID}");
     }
 }
