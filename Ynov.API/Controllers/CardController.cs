@@ -4,7 +4,7 @@ using Ynov.API.Models;
 namespace Ynov.API.Controllers;
 
 [ApiController]
-[Route("/card")]
+[Route("card")]
 public class CardController : ControllerBase
 {
     private readonly ILogger<CardController> _logger;
@@ -15,10 +15,10 @@ public class CardController : ControllerBase
     }
 
     //Get all cards
-    [HttpGet("/card/all")]
+    [HttpGet("all")]
     public ActionResult<Board> GetCard()
     {
-        var data = BoardList.listBoard
+        var data = BoardController.ListBoard
             .Select(board => board.CardList)
             .ToList();
 
@@ -27,10 +27,10 @@ public class CardController : ControllerBase
 
 
     // Get a specific card
-    [HttpGet("/card/{id}")]
+    [HttpGet("{id}")]
     public ActionResult<Board> GetCard(int id)
     {
-        var data = BoardList.listBoard
+        var data = BoardController.ListBoard
             .SelectMany(board => board.CardList)
             .FirstOrDefault(card => card.Id == id);
 
@@ -44,15 +44,15 @@ public class CardController : ControllerBase
 
 
     // ADD CARD with description and name to a specific board
-    [HttpPost("card/add/")]
+    [HttpPost("add")]
     public ActionResult<Board> AddCard(int id, string description, string name)
     {
-        if (id > BoardList.listBoard.Count - 1)
+        if (id > BoardController.ListBoard.Count - 1)
         {
             return NotFound($"The board number {id} wasn't found ");
         } //check if the board exist
 
-        Board currentBoard = BoardList.listBoard[id];
+        Board currentBoard = BoardController.ListBoard[id];
 
         currentBoard.CardList.Add(new Card(name, description, currentBoard.Id)); //add the card to the board
 
@@ -62,7 +62,7 @@ public class CardController : ControllerBase
 
 
     // DELETE CARD
-    [HttpDelete("card/{id}/delete/")]
+    [HttpDelete("{id}/delete/")]
     public ActionResult<Board> DeleteCard(int id)
     {
         //Get the board contenting the card
@@ -85,7 +85,7 @@ public class CardController : ControllerBase
     }
 
     //update card description
-    [HttpPatch("card/{id}/update/description/")]
+    [HttpPatch("{id}/update/description/")]
     public ActionResult<Board> ModifyCardDescription(int id, string description)
     {
         //Get the board contenting the card
@@ -109,7 +109,7 @@ public class CardController : ControllerBase
     }
     
     //update card name
-    [HttpPatch("card/{id}/update/title/")]
+    [HttpPatch("{id}/update/title/")]
     public ActionResult<Board> ModifyCardName(int id, string name)
     {
         //Get the board contenting the card
@@ -133,7 +133,7 @@ public class CardController : ControllerBase
     }
 
     //Modify card name AND description
-    [HttpPost("card/modify/")]
+    [HttpPost("modify/")]
     public ActionResult<Board> ModifyCard(int id, string name, string description)
     {
         //Get the board contenting the card

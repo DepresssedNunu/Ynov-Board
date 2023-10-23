@@ -21,9 +21,7 @@ if (app.Environment.IsDevelopment())
 Init.Test();
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
