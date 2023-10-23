@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Ynov.API.IServices;
 using Ynov.API.Models;
 
 namespace Ynov.API.Controllers;
@@ -7,16 +8,21 @@ namespace Ynov.API.Controllers;
 [Route("/board")]
 public class BoardController : ControllerBase
 {
+
+    private readonly IBoardService _boardService;
     
     public static List<Board> ListBoard = new List<Board>(); //work as the db
     
     private readonly ILogger<BoardController> _logger;
 
-    public BoardController(ILogger<BoardController> logger)
+    public BoardController(ILogger<BoardController> logger, IBoardService boardService)
     {
         _logger = logger;
+        _boardService = boardService;
     }
 
+    
+    
     //Get all boards
     [HttpGet("/board/all")]
     public ActionResult<Board> Get()
@@ -38,7 +44,7 @@ public class BoardController : ControllerBase
 
     //Get a specific board
     [HttpGet("/board/{id}")]
-    public ActionResult<Board> Get(int id)
+    public ActionResult<Board> get(int id)
     {
         if (id > ListBoard.Count)
         {
@@ -64,7 +70,7 @@ public class BoardController : ControllerBase
 
     //Add a board
     [HttpPost("/add/{name}")]
-    public ActionResult<Board> Get(string name)
+    public ActionResult<Board> Add(string name)
     {
         Board board = new Board(name);
         return Ok("Board added: " + board.Name);

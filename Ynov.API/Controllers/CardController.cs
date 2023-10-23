@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
+using Ynov.API.IServices;
 using Ynov.API.Models;
 
 namespace Ynov.API.Controllers;
@@ -7,13 +9,17 @@ namespace Ynov.API.Controllers;
 [Route("card")]
 public class CardController : ControllerBase
 {
+
+    private readonly IBoardService _boardService;
+    
     private readonly ILogger<CardController> _logger;
 
-    public CardController(ILogger<CardController> logger)
+    public CardController(ILogger<CardController> logger, IBoardService boardService)
     {
         _logger = logger;
+        _boardService = boardService;
     }
-
+    
     //Get all cards
     [HttpGet("all")]
     public ActionResult<Board> GetCard()
@@ -24,7 +30,6 @@ public class CardController : ControllerBase
 
         return Ok(data);
     }
-
 
     // Get a specific card
     [HttpGet("{id}")]
@@ -38,7 +43,7 @@ public class CardController : ControllerBase
         {
             return NotFound($"Card with ID {id} wasn't found.");
         }
-
+    
         return Ok(data);
     }
 

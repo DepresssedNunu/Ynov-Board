@@ -8,9 +8,13 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Ynov.API
 build_property.RootNamespace = Ynov.API
-build_property.ProjectDir = /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/
+build_property.ProjectDir = C:\Users\nunu\RiderProjects\Ynov-Board\Ynov.API\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API
+build_property.MSBuildProjectDirectory = C:\Users\nunu\RiderProjects\Ynov-Board\Ynov.API
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/nunu/RiderProjects/Ynov-Board/Ynov.API/Views/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcaW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
