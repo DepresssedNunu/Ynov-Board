@@ -1,53 +1,34 @@
-const nameForm = document.getElementById("nameForm");
-const nameInput = document.getElementById("nameInput");
 const modal = document.getElementById("modal");
-const addButton = document.querySelector(".add-button");
-const deleteButton = document.querySelector(".delete-button");
+const button = document.getElementsByClassName("button")
+const mainConsole = document.getElementById("main-console")
 
-nameForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    const name = nameInput.value;
-    if (name) {
-        const apiEndpoint = `/add/${name}`;
-        await fetch(apiEndpoint, {
-            method: 'POST',
-        })
+
+mainConsole.addEventListener("click", function (event) {
+    const target = event.target;
+    if (target.classList.contains("button")) {
+        event.preventDefault();
+        toggleFormVisibility(target.nextElementSibling);
     }
-    getBoardsAndCards();
 });
 
-deleteButton.addEventListener("click", async function (event) {
-    console.log("ahahah")
-    event.preventDefault();
-    const apiEndpoint = `/board/1/delete`;
-    await fetch(apiEndpoint, {
-        method: 'DELETE',
-    })
-    
-    getBoardsAndCards();
-});
 
-addButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    addBoardForm();
-});
+
+function toggleFormVisibility(form) {
+    if (form.style.display === "none" || form.style.display === "") {
+        form.style.display = "block";
+    } else {
+        form.style.display = "none";
+    }
+}
+
+
 
 async function updateBoard(apiEndpoint) {
     getBoardsAndCards();
 }
-function addBoardForm() {
-    if (nameForm.style.display === "none") {
-        nameForm.style.display = "block";
-    } else {
-        nameForm.style.display = "none";
-    }
-}
-
 
 function displayBoardsAndCards(response) {
-    const modal = document.getElementById("modal");
     modal.innerHTML = ""; // Clear previous content
-
     response.forEach(board => {
         const boardHTML = `
       <div class="board">
@@ -64,12 +45,11 @@ function displayBoardsAndCards(response) {
     });
 }
 
-
 async function getBoardsAndCards() {
     const apiEndpoint = "/board/all";
     await fetch(apiEndpoint)
         .then(response => response.json())
-        .then(response => displayBoardsAndCards(response))
+        .then(response => displayBoardsAndCards(response));
 }
 
 updateBoard();

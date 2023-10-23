@@ -14,65 +14,64 @@
 
 </head>
 <body>
+<div id="main-container">
 <div id="navbar">
     <div id="main-console">
-        
-        
-        <button class="modify-button button">Modify a Board</button>
-        <form id="nameForm">
-            <input type="text" id="nameInput" placeholder="Enter a name" required>
-            <div id="center-add-button">
-                <button id="add-submit" type="submit">Submit</button>
-            </div>
-        </form>
+        <div id="board-container">
+            <button class="modify-button button">Modify a Board</button>
+            <form class="nameForm">
+                <input type="text" id="nameInput" placeholder="Board name" required>
+                <div id="center-add-button">
+                    <button id="add-submit" type="submit">Submit</button>
+                </div>
+            </form>
 
+            <button class="delete-button button">Delete a Board</button>
+            <form id="del-nameForm" class="nameForm">
+                <input type="text" id="nameInput" placeholder="Board name" required>
+                <div id="center-add-button">
+                    <button id="add-submit" type="submit">Submit</button>
+                </div>
+            </form>
 
+            <button class="add-button button">Add a new Board</button>
+            <form id="add-nameForm" class="nameForm">
+                <input type="text" id="add-nameInput" placeholder="Board name" required>
+                <div id="center-add-button">
+                    <button id="add-submit" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id="card-container">
+            <button class="separator add-button button">Add a new Card</button>
+            <form class="nameForm">
+                <input type="text" id="nameInput" placeholder="Card name" required>
+                <div id="center-add-button">
+                    <button id="add-submit" type="submit">Submit</button>
+                </div>
+            </form>
 
-        <button class="delete-button button">Delete a Board</button>
-        <form id="nameForm">
-            <input type="text" id="nameInput" placeholder="Enter a name" required>
-            <div id="center-add-button">
-                <button id="add-submit" type="submit">Submit</button>
-            </div>
-        </form>
+            <button class="modify-button button">modify a Card</button>
+            <form class="nameForm">
+                <input type="text" id="nameInput" placeholder="Card name" required>
+                <div id="center-add-button">
+                    <button id="modify-submit" type="submit">Submit</button>
+                </div>
+            </form>
 
-        <button class="add-button button">Add a new Board</button>
-        <form id="nameForm">
-            <input type="text" id="nameInput" placeholder="Enter a name" required>
-            <div id="center-add-button">
-                <button id="add-submit" type="submit">Submit</button>
-            </div>
-        </form>
-        
-        <div id="barre"></div>
-        
-        <button class="add-button button">Add a new Card</button>
-        <form id="nameForm">
-            <input type="text" id="nameInput" placeholder="Enter a name" required>
-            <div id="center-add-button">
-                <button id="add-submit" type="submit">Submit</button>
-            </div>
-        </form>
-
-        <button class="modify-button button">modify a Card</button>
-        <form id="nameForm">
-            <input type="text" id="nameInput" placeholder="Enter a name" required>
-            <div id="center-add-button">
-                <button id="add-submit" type="submit">Submit</button>
-            </div>
-        </form>
-        
-        <button class="delete-button button">Delete a card</button>
-        <form id="nameForm">
-            <input type="text" id="nameInput" placeholder="Enter a name" required>
-            <div id="center-add-button">
-                <button id="add-submit" type="submit">Submit</button>
-            </div>
-        </form>
+            <button class="delete-button button">Delete a card</button>
+            <form class="nameForm">
+                <input type="text" id="nameInput" placeholder="Card name" required>
+                <div id="center-add-button">
+                    <button id="delete-submit" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
         
 
     </div>
 </div>
 <div id="modal"></div>
+</div>
 </body>
 </html>

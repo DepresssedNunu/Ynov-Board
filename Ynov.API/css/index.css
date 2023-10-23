@@ -2,76 +2,81 @@
     margin: 0;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    justify-content: center;
-    
-}
 
 #navbar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 6rem;
+    flex-direction: column;
+    min-height: 100vh;
     /* for Developpement only */
-    background-color: gray;
+    background-color: #2f2f2f;
     border: none;
-    width: 100%;
+    width: 20%;
 }
     
 /* Item in div */
 #navbar>* {
-    margin-inline: 3rem;
+width: 100%;
 }
 
-#title {
-    font-size: 30px;
-    font-family: "Roboto Light";
-    font-weight: bold;
+#main-container {
+    display: flex;
+    gap : 20px;
 }
 
 .button {
-    padding-inline: 1%;
-    border-radius: 50px;
+    padding : 20px 10px 20px 10px;
+    margin-block: 5%;
+    border-radius : 50px;
     font-weight: bold;
     color: black;
     font-size: 1rem;
     border: none;
-    margin-inline: 0.3rem;
+    margin-inline: 5%;
 }
 
 .modify-button {
-    background-color: orange;
+    background-color: #d98b02;
 }
 
 .delete-button {
-    background-color: red;
+    background-color: #c90303;
 }
 
 .add-button {
-    background-color: green;
+    background-color: #019d01;
 }
 
+#board-container, #card-container{
+    display: flex;
+    flex-direction: column;
+}
 
-#nameForm {
+.nameForm {
     display: none;
     flex-direction: column;
+    margin-inline: auto;
     justify-content: center;
-    position: absolute;
-    margin-top: 4.7rem;
-    height: 2rem;
-    padding: 40px 20px 40px 20px;
-    background-color: white;
+}
+
+.nameForm>input {
     border: none;
-    border-radius: 0 0 10px 10px;
+    border-radius: 12px;
+    padding: 5%;
+}
+
+.nameForm>button {
+    border: none;
+    background-color: #019d01;
+}
+
+textarea:focus, input:focus{
+    outline: none;
 }
 
 #main-console {
-    width: 100%;
     display: flex;
-    justify-content: end;
+    flex-direction: column;
+    height: 100%;
 }
 
 #center-add-button {
@@ -85,8 +90,9 @@ body {
     font-family: "Roboto", serif;
     margin-top: 5%;
     grid-template-columns: repeat(4, 20rem);
+    
     gap: 100px;
-    grid-auto-rows: minmax(100px, auto);
+    grid-auto-rows: minmax(20rem, auto);
 }
 
 .board {
@@ -97,7 +103,7 @@ body {
     gap: 20px;
     background-color: gray;
     max-width: 20rem;
-    min-height: 25rem;
+    max-height: 25rem;
     border-radius: 12px;
 }
 
@@ -109,9 +115,3 @@ body {
     padding-block: 1.5rem;
 }
 
-#barre {
-    margin: auto;
-    background-color: black ;
-    height: 80px;
-    width: .1%;
-}
