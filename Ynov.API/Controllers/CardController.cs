@@ -45,14 +45,14 @@ public class CardController : ControllerBase
 
     // ADD CARD with description and name to a specific board
     [HttpPost("card/add/")]
-    public ActionResult<Board> AddCard(int id, string description, string name)
+    public ActionResult<Board> AddCard([FromBody] int boardId, [FromBody] string description, [FromBody] string name)
     {
-        if (id > BoardList.listBoard.Count - 1)
+        if (boardId > BoardList.listBoard.Count - 1)
         {
-            return NotFound($"The board number {id} wasn't found ");
+            return NotFound($"The board number {boardId} wasn't found ");
         } //check if the board exist
 
-        Board currentBoard = BoardList.listBoard[id];
+        Board currentBoard = BoardList.listBoard[boardId];
 
         currentBoard.CardList.Add(new Card(name, description, currentBoard.Id)); //add the card to the board
 
@@ -86,7 +86,7 @@ public class CardController : ControllerBase
 
     //update card description
     [HttpPatch("card/{id}/update/description/")]
-    public ActionResult<Board> ModifyCardDescription(int id, string description)
+    public ActionResult<Board> ModifyCardDescription(int id, [FromBody] string description)
     {
         //Get the board contenting the card
         var boardWithCard = Board.GetBoard(id);
@@ -110,7 +110,7 @@ public class CardController : ControllerBase
     
     //update card name
     [HttpPatch("card/{id}/update/title/")]
-    public ActionResult<Board> ModifyCardName(int id, string name)
+    public ActionResult<Board> ModifyCardName(int id, [FromBody] string name)
     {
         //Get the board contenting the card
         var boardWithCard = Board.GetBoard(id);
@@ -133,8 +133,8 @@ public class CardController : ControllerBase
     }
 
     //Modify card name AND description
-    [HttpPost("card/modify/")]
-    public ActionResult<Board> ModifyCard(int id, string name, string description)
+    [HttpPut("card/modify/")]
+    public ActionResult<Board> ModifyCard(int id, [FromBody] string name, [FromBody] string description)
     {
         //Get the board contenting the card
         var boardWithCard = Board.GetBoard(id);
