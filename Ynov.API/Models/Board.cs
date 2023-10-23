@@ -1,3 +1,5 @@
+using Ynov.API.Controllers;
+
 namespace Ynov.API.Models;
 
 public class Board {
@@ -11,12 +13,12 @@ public class Board {
     {
         Name = name;
         Id = _idCounter++;
-        BoardList.ListBoard.Add(this);
+        BoardController.ListBoard.Add(this);
     }
 
     public static Board GetBoard(int id)
     {
-        var boardWithCard = BoardList.ListBoard
+        var boardWithCard = BoardController.ListBoard
             .FirstOrDefault(board => board.CardList
                 .Any(card => card.Id == id));
 

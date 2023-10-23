@@ -7,6 +7,9 @@ namespace Ynov.API.Controllers;
 [Route("/board")]
 public class BoardController : ControllerBase
 {
+    
+    public static List<Board> ListBoard = new List<Board>(); //work as the db
+    
     private readonly ILogger<BoardController> _logger;
 
     public BoardController(ILogger<BoardController> logger)
@@ -18,7 +21,7 @@ public class BoardController : ControllerBase
     [HttpGet("/board/all")]
     public ActionResult<Board> Get()
     {
-        var data = BoardList.ListBoard.Select(board => new
+        var data = ListBoard.Select(board => new
         {
             board.Id,
             board.Name,
@@ -37,12 +40,12 @@ public class BoardController : ControllerBase
     [HttpGet("/board/{id}")]
     public ActionResult<Board> Get(int id)
     {
-        if (id > BoardList.ListBoard.Count)
+        if (id > ListBoard.Count)
         {
             return NotFound($"The board number {id} wasn't found ");
         }
         
-        var data = BoardList.ListBoard
+        var data = ListBoard
             .Where(board => board.Id == id)
             .Select(board => new
         {
@@ -71,22 +74,20 @@ public class BoardController : ControllerBase
     [HttpPost("/update/{id}/")]
     public ActionResult<Board> Modify(int id, string name)
     {
-        return (id > BoardList.ListBoard.Count)
-            ? NotFound($"The board number {id} wasn't found ")
-            : Ok(BoardList.ListBoard[id].Name = name);
+        return (id > ListBoard.Count) ? NotFound($"The board number {id} wasn't found ") : Ok(ListBoard[id].Name = name);
     }
 
     //Delete a board
     [HttpDelete("/board/{id}/delete/")]
     public ActionResult<Board> Delete(int id)
     {
-        if (id > BoardList.ListBoard.Count)
+        if (id > ListBoard.Count)
         {
             return NotFound($"The board number {id} wasn't found ");
         }
 
-        Board currentBoard = BoardList.ListBoard[id];
-        BoardList.ListBoard.RemoveAt(id);
+        Board currentBoard = ListBoard[id];
+        ListBoard.RemoveAt(id);
         return Ok("Board deleted:" + currentBoard.Name);
     }
 }
