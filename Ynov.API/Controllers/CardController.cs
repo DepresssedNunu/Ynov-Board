@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Ynov.API.DTOitem;
 using Ynov.API.Models;
 
 namespace Ynov.API.Controllers;
@@ -42,27 +43,25 @@ public class CardController : ControllerBase
         return Ok(data);
     }
 
-
     // ADD CARD with description and name to a specific board
-    [HttpPost("card/add/")]
-    public ActionResult<Board> AddCard(int id, string description, string name)
+    [HttpPost("/card/add/")]
+    public ActionResult<Board> AddCard([FromBody] CardInputModel cardInput)
     {
-        if (id > BoardList.listBoard.Count - 1)
+        if (cardInput.BoardId > BoardList.listBoard.Count - 1)
         {
-            return NotFound($"The board number {id} wasn't found ");
+            return NotFound($"The board number {cardInput.BoardId} wasn't found ");
         } //check if the board exist
 
-        Board currentBoard = BoardList.listBoard[id];
+        Board currentBoard = BoardList.listBoard[cardInput.BoardId];
 
-        currentBoard.CardList.Add(new Card(name, description, currentBoard.Id)); //add the card to the board
+        currentBoard.CardList.Add(new Card(cardInput.Name, cardInput.Description, currentBoard.Id)); //add the card to the board
 
         return Ok("Card added: " + currentBoard.CardList[^1].Name + ": " +
                   currentBoard.CardList[^1].Description); //return the last card added
     }
 
-
     // DELETE CARD
-    [HttpDelete("card/{id}/delete/")]
+    [HttpDelete("/card/{id}/delete/")]
     public ActionResult<Board> DeleteCard(int id)
     {
         //Get the board contenting the card
@@ -85,8 +84,8 @@ public class CardController : ControllerBase
     }
 
     //update card description
-    [HttpPatch("card/{id}/update/description/")]
-    public ActionResult<Board> ModifyCardDescription(int id, string description)
+    [HttpPatch("/card/{id}/update/description/")]
+    public ActionResult<Board> ModifyCardDescription(int id, [FromBody] string description)
     {
         //Get the board contenting the card
         var boardWithCard = Board.GetBoard(id);
@@ -109,8 +108,8 @@ public class CardController : ControllerBase
     }
     
     //update card name
-    [HttpPatch("card/{id}/update/title/")]
-    public ActionResult<Board> ModifyCardName(int id, string name)
+    [HttpPatch("/card/{id}/update/title/")]
+    public ActionResult<Board> ModifyCardName(int id, [FromBody] string name)
     {
         //Get the board contenting the card
         var boardWithCard = Board.GetBoard(id);
@@ -133,27 +132,27 @@ public class CardController : ControllerBase
     }
 
     //Modify card name AND description
-    [HttpPost("card/modify/")]
-    public ActionResult<Board> ModifyCard(int id, string name, string description)
+    [HttpPut("/card/modify/")]
+    public ActionResult<Board> ModifyCard([FromBody] CardInputModel model)
     {
         //Get the board contenting the card
-        var boardWithCard = Board.GetBoard(id);
+        var boardWithCard = Board.GetBoard(model.BoardId);
 
         // check if the card {id} exists
         if (boardWithCard == null)
         {
-            return NotFound($"Card with ID {id} wasn't found.");
+            return NotFound($"Card with ID {model.BoardId} wasn't found.");
         }
 
-        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
+        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == model.BoardId);
 
         if (card == null)
         {
-            return NotFound($"The card {id} wasn't found");
+            return NotFound($"The card {model.BoardId} wasn't found");
         }
 
-        card.Description = description;
-        card.Name = name;
+        card.Description = model.Description;
+        card.Name = model.Name;
         return Ok($"Card {card.Id} has been modified !");
     }
 }

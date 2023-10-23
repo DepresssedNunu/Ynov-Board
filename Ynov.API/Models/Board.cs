@@ -1,7 +1,7 @@
 namespace Ynov.API.Models;
 
 public class Board {
-    private static int IdCounter = 0; //keep track of the number of boards
+    private static int IdCounter = 1; //keep track of the number of boards
 
     public List<Card> CardList = new();
     public string Name { get; protected internal set; }
