@@ -194,4 +194,54 @@ public class CardController : ControllerBase
 
         return Ok($"The card {id} was move to board {newBoardID}");
     }
+    
+    [HttpGet("/card/search")]
+    public ActionResult<Board> Search([FromQuery] SearchQuery parameters)
+    {
+        var cards = BoardList.listBoard
+            .SelectMany(board => board.CardList) // Flatten the list of cards from all boards
+            .Where(card => 
+                (string.IsNullOrEmpty(parameters.Title) || card.Name.Contains(parameters.Title, StringComparison.OrdinalIgnoreCase)) &&
+                (string.IsNullOrEmpty(parameters.Description) || card.Description.Contains(parameters.Description, StringComparison.OrdinalIgnoreCase)))
+            .ToList();
+        
+        if (!cards.Any())
+        {
+            return NotFound("No cards found matching the search criteria.");
+        }
+        
+        return Ok(cards);
+    }
+
+    [HttpGet("/card/{id}/sort")]
+    public ActionResult<Board> SortBoard(int boardId, [FromQuery] SortValues query)
+    {
+        Board board = BoardList.listBoard.FirstOrDefault(b => b.Id == boardId);
+        
+        if (board == null)
+        {
+            return NotFound($"The board {boardId} wasn't found");
+        }
+        
+        switch (query)
+        {
+            case SortValues.TitleAscending:
+                board.CardList = board.CardList.OrderBy(card => card.Name).ToList();
+                break;
+            case SortValues.TitleDescending:
+                board.CardList = board.CardList.OrderByDescending(card => card.Name).ToList();
+                break;
+            case SortValues.DateAscending:
+                board.CardList = board.CardList.OrderBy(card => card.CreationDate).ToList();
+                break;
+            case SortValues.DateDescending:
+                board.CardList = board.CardList.OrderByDescending(card => card.CreationDate).ToList();
+                break;
+            
+            default:
+                return BadRequest($"Invalid sort value: {query}");
+        }
+
+        return board;
+    }
 }
