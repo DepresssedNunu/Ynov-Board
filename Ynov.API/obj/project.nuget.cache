@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7Ipyel6fXO/mrgTPRymrZAi9oLsWozMG3lQequEU+0Hdb94olipfeWY3wIag3dqYGAQCkog28SAz6bn2JM8cVw==",
+  "dgSpecHash": "iPJ+EW+eq5WWI9buAyGyYw4Gk1XFuhXYlOOdywN4Z55VWkmip7TxiIdW7TCND41y0JmU37AhDCoH/OA4hhRYjg==",
   "success": true,
   "projectFilePath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/Ynov.API.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,10 @@
     "/Users/flo/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "/Users/flo/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "/Users/flo/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
-    "/Users/flo/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+    "/Users/flo/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
+    "/Users/flo/.nuget/packages/microsoft.netcore.app.ref/6.0.23/microsoft.netcore.app.ref.6.0.23.nupkg.sha512",
+    "/Users/flo/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.23/microsoft.aspnetcore.app.ref.6.0.23.nupkg.sha512",
+    "/Users/flo/.nuget/packages/microsoft.netcore.app.host.osx-arm64/6.0.23/microsoft.netcore.app.host.osx-arm64.6.0.23.nupkg.sha512"
   ],
   "logs": []
 }

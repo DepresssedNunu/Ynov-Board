@@ -51,4 +51,10 @@
 /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/Ynov.API.pdb
 /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/Ynov.API.genruntimeconfig.cache
 /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/ref/Ynov.API.dll
-/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/bin/Debug/net6.0/ref/Ynov.API.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/Ynov.API.sourcelink.json
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/staticwebassets/msbuild.Ynov.API.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/staticwebassets/msbuild.build.Ynov.API.props
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/staticwebassets/msbuild.buildMultiTargeting.Ynov.API.props
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/staticwebassets/msbuild.buildTransitive.Ynov.API.props
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/staticwebassets.pack.json
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/refint/Ynov.API.dll
