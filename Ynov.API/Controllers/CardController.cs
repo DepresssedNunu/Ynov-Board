@@ -19,7 +19,7 @@ public class CardController : ControllerBase
     [HttpGet("all")]
     public ActionResult<Board> GetCard()
     {
-        var data = BoardController.ListBoard
+        var data = Board.ListBoard
             .Select(board => board.CardList)
             .ToList();
 
@@ -31,7 +31,7 @@ public class CardController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Board> GetCard(int id)
     {
-        var data = BoardController.ListBoard
+        var data = Board.ListBoard
             .SelectMany(board => board.CardList)
             .FirstOrDefault(card => card.Id == id);
 
@@ -48,12 +48,12 @@ public class CardController : ControllerBase
     [HttpPost("add")]
     public ActionResult<Board> AddCard(int id, string description, string name)
     {
-        if (id > BoardController.ListBoard.Count - 1)
+        if (id > Board.ListBoard.Count - 1)
         {
             return NotFound($"The board number {id} wasn't found ");
         } //check if the board exist
 
-        Board currentBoard = BoardController.ListBoard[id];
+        Board currentBoard = Board.ListBoard[id];
 
         currentBoard.CardList.Add(new Card(name, description, currentBoard.Id)); //add the card to the board
 
@@ -179,7 +179,7 @@ public class CardController : ControllerBase
         }
 
         //Get the new board
-        var newBoard = BoardController.ListBoard.FirstOrDefault(b => b.Id == newBoardID);
+        var newBoard = Board.ListBoard.FirstOrDefault(b => b.Id == newBoardID);
 
         // check if the board {newID} exists
         if (newBoard == null)
@@ -199,7 +199,7 @@ public class CardController : ControllerBase
     [HttpGet("/card/search")]
     public ActionResult<Board> Search([FromQuery] SearchQuery parameters)
     {
-        var cards = BoardController.ListBoard
+        var cards = Board.ListBoard
             .SelectMany(board => board.CardList) // Flatten the list of cards from all boards
             .Where(card => 
                 (string.IsNullOrEmpty(parameters.Title) || card.Name.Contains(parameters.Title, StringComparison.OrdinalIgnoreCase)) &&
