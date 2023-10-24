@@ -1,9 +1,11 @@
 const modal = document.getElementById("modal");
 const button = document.getElementsByClassName("button")
-const mainConsole = document.getElementById("main-console")
+const navbar = document.getElementById("navbar")
+const buttonText = document.getElementsByClassName("buttonText")
 
+const card = document.getElementsByClassName("card")
 
-mainConsole.addEventListener("click", function (event) {
+navbar.addEventListener("click", function (event) {
     const target = event.target;
     if (target.classList.contains("button")) {
         event.preventDefault();
@@ -11,7 +13,11 @@ mainConsole.addEventListener("click", function (event) {
     }
 });
 
-
+navbar.addEventListener("mouseleave", function (event) {
+    for (let i = 0; i < button.length; i++) {
+        button[i].nextElementSibling.style.display = "none";
+    }
+});
 
 function toggleFormVisibility(form) {
     if (form.style.display === "none" || form.style.display === "") {
@@ -20,7 +26,6 @@ function toggleFormVisibility(form) {
         form.style.display = "none";
     }
 }
-
 
 
 async function updateBoard(apiEndpoint) {
@@ -32,7 +37,7 @@ function displayBoardsAndCards(response) {
     response.forEach(board => {
         const boardHTML = `
       <div class="board">
-        <h3>${board.name} : ${board.id}</h3>
+        <h3 class="titleCard">${board.name} : ${board.id}</h3>
         ${board.cards.map(card => `
           <div class="card">
             <h4>${card.name}</h4>

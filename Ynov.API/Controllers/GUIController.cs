@@ -14,7 +14,7 @@ public class GUIController  : ControllerBase {
     {
         return new ContentResult()
         {
-            Content = System.IO.File.ReadAllText("./Views/index.cshtml"),
+            Content = System.IO.File.ReadAllText("../Ynov.GUI/Views/index.cshtml"),
             ContentType = "text/html"
         };
     }
@@ -25,7 +25,7 @@ public class GUIController  : ControllerBase {
     {
         return new ContentResult()
         {
-            Content = System.IO.File.ReadAllText("./css/index.css"),
+            Content = System.IO.File.ReadAllText("../Ynov.GUI/css/index.css"),
             ContentType = "text/css"
         };
     }
@@ -35,7 +35,7 @@ public class GUIController  : ControllerBase {
     {
         return new ContentResult()
         {
-            Content = System.IO.File.ReadAllText("./js/index.js"),
+            Content = System.IO.File.ReadAllText("../Ynov.GUI/js/index.js"),
             ContentType = "text/javascript"
         };
     }
