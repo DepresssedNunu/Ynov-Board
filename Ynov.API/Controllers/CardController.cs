@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Ynov.API.DTOitem;
-using Ynov.API.Models;
+using Ynov.Busines.Models;
 
 namespace Ynov.API.Controllers;
 
@@ -46,7 +46,7 @@ public class CardController : ControllerBase
 
     // ADD CARD with description and name to a specific board
     [HttpPost("add")]
-    public ActionResult<Board> AddCard(int id, string description, string name)
+    public ActionResult<Board> AddCard(long id, string description, string name)
     {
         if (id > Board.ListBoard.Count - 1)
         {

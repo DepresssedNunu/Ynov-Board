@@ -1,122 +1,162 @@
 using Microsoft.AspNetCore.Mvc;
 using Ynov.API.DTOitem;
-using Ynov.API.Models;
+using Ynov.API.IServices;
+using Ynov.Busines.Models;
 
 namespace Ynov.API.Controllers;
 
+[Route("[controller]")]
 [ApiController]
-[Route("board")]
 public class BoardController : ControllerBase
 {
-    private readonly ILogger<BoardController> _logger;
+    private readonly IBoardService _boardService;
 
-    public BoardController(ILogger<BoardController> logger)
+    public BoardController(IBoardService boardService)
     {
-        _logger = logger;
+        _boardService = boardService;
     }
 
     //Get all boards
-    [HttpGet("all")]
+    [HttpGet]
     public ActionResult<Board> Get()
     {
-        var data = Board.ListBoard.Select(board => new
+        // Appel du service
+        BusinessResult<List<Board>> getBoardsResult = _boardService.Get();
+
+        // Création de la réponse
+        if (getBoardsResult.IsSuccess)
         {
-            board.Id,
-            board.Name,
-            Cards = board.CardList.Select(card => new
-            {
-                card.Id,
-                card.Name,
-                card.Description,
-                card.CreationDate,
-            }).ToList()
-        });
-        return Ok(data);
-    }   
+            return Ok(getBoardsResult.Result);
+        }
+
+        // Gestion des erreurs
+        BusinessError? error = getBoardsResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
+    }
 
     //Get a specific board
     [HttpGet("{id}")]
-    public ActionResult<Board> Get(int id)
+    public ActionResult<Board> Get(long id)
     {
-        if (id > Board.ListBoard.Count)
-        {
-            return NotFound($"The board number {id} wasn't found ");
-        }
-        
-        var data = Board.ListBoard
-            .Where(board => board.Id == id)
-            .Select(board => new
-        {
-            board.Id,
-            board.Name,
-            Cards = board.CardList.Select(card => new
-            {
-                card.Id,
-                card.Name,
-                card.Description,
-                card.CreationDate,
-            }).ToList()
-        });
-        return Ok(data);
-    }
+        BusinessResult<Board> getBoardResult = _boardService.Get(id);
 
-    //Add a board
-    [HttpPost("add")]
-    public ActionResult<Board> Get([FromBody] string name)
-    {
-        Board board = new Board(name);
-        return Ok("Board added: " + board.Name);
-    }
-
-    //Update the name of a board
-    [HttpPut("{id}/update")]
-    public ActionResult<Board> Modify(int id, [FromBody] string name)
-    {
-        return (id > Board.ListBoard.Count) ? NotFound($"The board number {id} wasn't found ") : Ok(Board.ListBoard[id].Name = name);
-    }
-
-    //Delete a board
-    [HttpDelete("{id}/delete")]
-    public ActionResult<Board> Delete(int id)
-    {
-        if (id > Board.ListBoard.Count)
+        if (getBoardResult.IsSuccess)
         {
-            return NotFound($"The board number {id} wasn't found ");
+            return Ok(getBoardResult.Result);
         }
 
-        Board currentBoard = Board.ListBoard[id];
-        Board.ListBoard.RemoveAt(id);
-        return Ok("Board deleted:" + currentBoard.Name);
+        BusinessError? error = getBoardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
     }
     
     [HttpGet("{id}/sort")]
-    public ActionResult<Board> SortBoard(int id, [FromQuery] SortValues query)
+    public ActionResult<Board> SortBoard(long id, [FromQuery] SortValues query)
     {
-        Board board = Board.ListBoard.FirstOrDefault(b => b.Id == id);
+        BusinessResult<Board> sortBoardResult = _boardService.Sort(id, query);
         
-        if (board == null)
+        if (sortBoardResult.IsSuccess)
         {
-            return NotFound($"The board {id} wasn't found");
+            return Ok(sortBoardResult.Result);
         }
-        
-        switch (query)
+
+        BusinessError? error = sortBoardResult.Error;
+        switch (error?.Reason)
         {
-            case SortValues.TitleAscending:
-                board.CardList = board.CardList.OrderBy(card => card.Name).ToList();
-                break;
-            case SortValues.TitleDescending:
-                board.CardList = board.CardList.OrderByDescending(card => card.Name).ToList();
-                break;
-            case SortValues.DateAscending:
-                board.CardList = board.CardList.OrderBy(card => card.CreationDate).ToList();
-                break;
-            case SortValues.DateDescending:
-                board.CardList = board.CardList.OrderByDescending(card => card.CreationDate).ToList();
-                break;
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
             default:
-                return BadRequest($"Invalid sort value: {query}");
+                return BadRequest(error?.ErrorMessage);
         }
-        return Ok(board.CardList);
+    }
+
+    //Add a board
+    [HttpPost]
+    public ActionResult<Board> Add([FromBody] Board board)
+    {
+        BusinessResult<Board> addBoardResult = _boardService.Add(board);
+
+       // Création de la réponse
+        if (addBoardResult.IsSuccess)
+        {
+            Board result = addBoardResult.Result!;
+            
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+        }
+
+        // Gestion des erreurs
+        BusinessError? error = addBoardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
+    }
+
+    //Update the name of a board
+    [HttpPut("{id}")]
+    public ActionResult<Board> Modify(long id, [FromBody] Board mBoard)
+    {
+        BusinessResult<Board> updateBoardResult = _boardService.Modify(id, mBoard);
+
+        if (updateBoardResult.IsSuccess)
+        {
+            return Ok(updateBoardResult.Result);
+        }
+
+        BusinessError? error = updateBoardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
+    }
+
+    //Delete a board
+    [HttpDelete("{id}")]
+    public ActionResult<Board> Delete(long id)
+    {
+        BusinessResult deleteBoardResult = _boardService.Delete(id);
+
+        if (deleteBoardResult.IsSuccess)
+        {
+            return Ok();
+        }
+
+        BusinessError? error = deleteBoardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
     }
 }
-    

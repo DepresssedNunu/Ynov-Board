@@ -1,16 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
-using Ynov.API.Models;
+using Ynov.API.DTOitem;
+using Ynov.Busines.Models;
 
 namespace Ynov.API.IServices;
 
 public interface IBoardService
 {
-    public ActionResult<Board> Get();
-
-    public ActionResult<Board> Add(string name);
-
-    public ActionResult<Board> Modify(int id, string name);
-
-    public ActionResult<Board> Delete(int id);
+    public BusinessResult<List<Board>> Get(); 
     
+    public BusinessResult<Board> Get(long id);
+    
+    public BusinessResult<Board> Add(Board board);
+    
+    public BusinessResult<Board> Modify(long id, Board mBoard);
+    
+    public BusinessResult Delete(long id);
+    
+    public BusinessResult<Board> Sort(long id, SortValues query);
 }
