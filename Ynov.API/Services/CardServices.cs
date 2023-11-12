@@ -110,12 +110,6 @@ public class CardServices : ICardServices
     public BusinessResult<List<Card>> Search(SearchQuery parameters)
     {
         List<Card>? cards = _cardRepository.Search(parameters);
-
-        if (cards is null)
-        {
-            return BusinessResult<List<Card>>.FromError($"No result found", BusinessErrorReason.NotFound);
-
-        }
         
         return BusinessResult<List<Card>>.FromSuccess(cards);
     }

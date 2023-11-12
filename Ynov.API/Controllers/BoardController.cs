@@ -9,11 +9,11 @@ namespace Ynov.API.Controllers;
 [ApiController]
 public class BoardController : ControllerBase
 {
-    private readonly IBoardService _boardService;
+    private readonly IBoardServices _boardServices;
 
-    public BoardController(IBoardService boardService)
+    public BoardController(IBoardServices boardServices)
     {
-        _boardService = boardService;
+        _boardServices = boardServices;
     }
 
     //Get all boards
@@ -21,7 +21,7 @@ public class BoardController : ControllerBase
     public ActionResult<Board> Get()
     {
         // Appel du service
-        BusinessResult<List<Board>> getBoardsResult = _boardService.Get();
+        BusinessResult<List<Board>> getBoardsResult = _boardServices.Get();
 
         // Création de la réponse
         if (getBoardsResult.IsSuccess)
@@ -46,7 +46,7 @@ public class BoardController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Board> Get(long id)
     {
-        BusinessResult<Board> getBoardResult = _boardService.Get(id);
+        BusinessResult<Board> getBoardResult = _boardServices.Get(id);
 
         if (getBoardResult.IsSuccess)
         {
@@ -68,7 +68,7 @@ public class BoardController : ControllerBase
     [HttpGet("{id}/sort")]
     public ActionResult<Board> SortBoard(long id, [FromQuery] SortValues query)
     {
-        BusinessResult<Board> sortBoardResult = _boardService.Sort(id, query);
+        BusinessResult<Board> sortBoardResult = _boardServices.Sort(id, query);
         
         if (sortBoardResult.IsSuccess)
         {
@@ -91,7 +91,7 @@ public class BoardController : ControllerBase
     [HttpPost]
     public ActionResult<Board> Add([FromBody] Board board)
     {
-        BusinessResult<Board> addBoardResult = _boardService.Add(board);
+        BusinessResult<Board> addBoardResult = _boardServices.Add(board);
 
        // Création de la réponse
         if (addBoardResult.IsSuccess)
@@ -118,7 +118,7 @@ public class BoardController : ControllerBase
     [HttpPut("{id}")]
     public ActionResult<Board> Modify(long id, [FromBody] Board mBoard)
     {
-        BusinessResult<Board> updateBoardResult = _boardService.Modify(id, mBoard);
+        BusinessResult<Board> updateBoardResult = _boardServices.Modify(id, mBoard);
 
         if (updateBoardResult.IsSuccess)
         {
@@ -139,9 +139,9 @@ public class BoardController : ControllerBase
 
     //Delete a board
     [HttpDelete("{id}")]
-    public ActionResult<Board> Delete(long id)
+    public ActionResult Delete(long id)
     {
-        BusinessResult deleteBoardResult = _boardService.Delete(id);
+        BusinessResult deleteBoardResult = _boardServices.Delete(id);
 
         if (deleteBoardResult.IsSuccess)
         {

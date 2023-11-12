@@ -4,7 +4,7 @@ using Ynov.Busines.Models;
 
 namespace Ynov.API.IServices;
 
-public interface IBoardService
+public interface IBoardServices
 {
     public BusinessResult<List<Board>> Get(); 
     

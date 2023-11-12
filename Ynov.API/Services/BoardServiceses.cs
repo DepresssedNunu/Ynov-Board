@@ -6,11 +6,11 @@ using Ynov.Busines.Models;
 
 namespace Ynov.API.Services;
 
-public class BoardServices : IBoardService
+public class BoardServiceses : IBoardServices
 {
     private readonly IBoardRepository _boardRepository;
 
-    public BoardServices(IBoardRepository boardRepository)
+    public BoardServiceses(IBoardRepository boardRepository)
     {
         _boardRepository = boardRepository;
     }

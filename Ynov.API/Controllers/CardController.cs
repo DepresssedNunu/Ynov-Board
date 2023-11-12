@@ -1,216 +1,230 @@
 using Microsoft.AspNetCore.Mvc;
 using Ynov.API.DTOitem;
+using Ynov.API.IServices;
 using Ynov.Busines.Models;
 
 namespace Ynov.API.Controllers;
 
 [ApiController]
-[Route("card")]
+[Route("[controller]")]
 public class CardController : ControllerBase
 {
-    private readonly ILogger<CardController> _logger;
+    private readonly ICardServices _cardServices;
 
-    public CardController(ILogger<CardController> logger)
+    public CardController(ICardServices cardServices)
     {
-        _logger = logger;
+        _cardServices = cardServices;
     }
 
     //Get all cards
-    [HttpGet("all")]
-    public ActionResult<Board> GetCard()
+    [HttpGet]
+    public ActionResult<List<Card>> Get()
     {
-        var data = Board.ListBoard
-            .Select(board => board.CardList)
-            .ToList();
+        // Appel du service
+        BusinessResult<List<Card>> getCardResult = _cardServices.Get();
 
-        return Ok(data);
+        // Création de la réponse
+        if (getCardResult.IsSuccess)
+        {
+            return Ok(getCardResult.Result);
+        }
+
+        // Gestion des erreurs
+        BusinessError? error = getCardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
     }
 
 
     // Get a specific card
     [HttpGet("{id}")]
-    public ActionResult<Board> GetCard(int id)
+    public ActionResult<Card> GetCard(long id)
     {
-        var data = Board.ListBoard
-            .SelectMany(board => board.CardList)
-            .FirstOrDefault(card => card.Id == id);
+        BusinessResult<Card> getCardResult = _cardServices.Get(id);
 
-        if (data == null)
+        if (getCardResult.IsSuccess)
         {
-            return NotFound($"Card with ID {id} wasn't found.");
+            return Ok(getCardResult.Result);
         }
 
-        return Ok(data);
+        BusinessError? error = getCardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
     }
+    
+    [HttpGet("search")]
+    public ActionResult<List<Card>> Search([FromQuery] SearchQuery parameters)
+    {
+        BusinessResult<List<Card>> getSearchCardsResult = _cardServices.Search(parameters);
+        
+        if (getSearchCardsResult.IsSuccess)
+        {
+            return Ok(getSearchCardsResult.Result);
+        }
 
+        BusinessError? error = getSearchCardsResult.Error;
+        switch (error.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+            return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+            return NotFound(error?.ErrorMessage);
+            default:
+            return BadRequest(error?.ErrorMessage);
+        }
+    }
 
     // ADD CARD with description and name to a specific board
-    [HttpPost("add")]
-    public ActionResult<Board> AddCard(long id, string description, string name)
+    [HttpPost]
+    public ActionResult<Card> Add([FromBody] Card card)
     {
-        if (id > Board.ListBoard.Count - 1)
+        BusinessResult<Card> addCardResult = _cardServices.Add(card);
+        
+        if (addCardResult.IsSuccess)
         {
-            return NotFound($"The board number {id} wasn't found ");
-        } //check if the board exist
+            Card result = addCardResult.Result!;
 
-        Board currentBoard = Board.ListBoard[id];
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+        }
 
-        currentBoard.CardList.Add(new Card(name, description, currentBoard.Id)); //add the card to the board
-
-        return Ok("Card added: " + currentBoard.CardList[^1].Name + ": " +
-                  currentBoard.CardList[^1].Description); //return the last card added
+        BusinessError? error = addCardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
     }
-
-
-    // DELETE CARD
-    [HttpDelete("{id}/delete/")]
-    public ActionResult<Board> DeleteCard(int id)
-    {
-        //Get the board contenting the card
-        var boardWithCard = Board.GetBoard(id);
-
-        // check if the card {id} exists
-        if (boardWithCard == null)
-        {
-            return NotFound($"Card with ID {id} wasn't found.");
-        }
-
-        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
-
-        if (card != null)
-        {
-            boardWithCard.CardList.Remove(card);
-            return Ok($"Card with ID {id} has been deleted.");
-        }
-
-        return NotFound($"Card with ID {id} wasn't found.");
-    }
-
-    //update card description
-    [HttpPatch("{id}/update/description/")]
-    public ActionResult<Board> ModifyCardDescription(int id, string description)
-    {
-        //Get the board contenting the card
-        var boardWithCard = Board.GetBoard(id);
-
-        // check if the card {id} exists
-        if (boardWithCard == null)
-        {
-            return NotFound($"Card with ID {id} wasn't found.");
-        }
-
-        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
-
-        if (card == null)
-        {
-            return NotFound($"The card {id} wasn't found");
-        }
-
-        card.Description = description;
-        return Ok($"Card {card.Name} has been modified !");
-    }
-
-    //update card name
-    [HttpPatch("{id}/update/title/")]
-    public ActionResult<Board> ModifyCardName(int id, string name)
-    {
-        //Get the board contenting the card
-        var boardWithCard = Board.GetBoard(id);
-
-        // check if the card {id} exists
-        if (boardWithCard == null)
-        {
-            return NotFound($"Card with ID {id} wasn't found.");
-        }
-
-        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
-
-        if (card == null)
-        {
-            return NotFound($"The card {id} wasn't found");
-        }
-
-        card.Name = name;
-        return Ok($"Card {card.Id} has been modified !");
-    }
-
+    
     //Modify card name AND description
-    [HttpPut("modify/")]
-    public ActionResult<Board> ModifyCard(int id, string name, string description)
+    [HttpPut("{id}")]
+    public ActionResult<Card> Modify(long id, [FromBody] Card card)
     {
-        //Get the board contenting the card
-        var boardWithCard = Board.GetBoard(id);
-
-        // check if the card {id} exists
-        if (boardWithCard == null)
+        BusinessResult<Card> updateCardResult = _cardServices.Modify(id, card);
+        
+        if (updateCardResult.IsSuccess)
         {
-            return NotFound($"Card with ID {id} wasn't found.");
+            return Ok(updateCardResult.Result);
         }
 
-        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
-
-        if (card == null)
+        BusinessError? error = updateCardResult.Error;
+        switch (error?.Reason)
         {
-            return NotFound($"The card {id} wasn't found");
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
+    }
+
+    //Modify card name
+    [HttpPatch("{id}/name")]
+    public ActionResult<Card> ModifyCardName(long id, [FromBody] Card card)
+    {
+        BusinessResult<Card> updateCardResult = _cardServices.ModifyCardName(id, card);
+        
+        if (updateCardResult.IsSuccess)
+        {
+            return Ok(updateCardResult.Result);
         }
 
-        card.Description = description;
-        card.Name = name;
-        return Ok($"Card {card.Id} has been modified !");
+        BusinessError? error = updateCardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
+    }
+
+    //Modify card name
+    [HttpPatch("{id}/description")]
+    public ActionResult<Card> ModifyCardDescription(long id, [FromBody] Card card)
+    {
+        BusinessResult<Card> updateCardResult = _cardServices.ModifyCardDescription(id, card);
+        
+        if (updateCardResult.IsSuccess)
+        {
+            return Ok(updateCardResult.Result);
+        }
+
+        BusinessError? error = updateCardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
     }
 
     [HttpPatch("{id}/move")]
-    public ActionResult ModifyCardBoard(int id, int newBoardID)
+    public ActionResult<Card> Move(long id, long newId)
     {
-        //Get the board contenting the card
-        var boardWithCard = Board.GetBoard(id);
-
-        // check if the card {id} exists
-        if (boardWithCard == null)
+        BusinessResult<Card> updateCardResult = _cardServices.Move(id, newId);
+        
+        if (updateCardResult.IsSuccess)
         {
-            return NotFound($"Card with ID {id} wasn't found.");
+            return Ok(updateCardResult.Result);
         }
 
-        var card = boardWithCard.CardList.FirstOrDefault(card => card.Id == id);
-
-        if (card == null)
+        BusinessError? error = updateCardResult.Error;
+        switch (error?.Reason)
         {
-            return NotFound($"The card {id} wasn't found");
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
         }
-
-        //Get the new board
-        var newBoard = Board.ListBoard.FirstOrDefault(b => b.Id == newBoardID);
-
-        // check if the board {newID} exists
-        if (newBoard == null)
-        {
-            return NotFound($"Board with ID {newBoardID} wasn't found.");
-        }
-
-        // change the board id of the card
-        card.BoardId = newBoardID;
-
-        boardWithCard.CardList.Remove(card);
-        newBoard.CardList.Add(card);
-
-        return Ok($"The card {id} was move to board {newBoardID}");
     }
     
-    [HttpGet("/card/search")]
-    public ActionResult<Board> Search([FromQuery] SearchQuery parameters)
+    // DELETE CARD
+    [HttpDelete("{id}")]
+    public ActionResult Delete(long id)
     {
-        var cards = Board.ListBoard
-            .SelectMany(board => board.CardList) // Flatten the list of cards from all boards
-            .Where(card => 
-                (string.IsNullOrEmpty(parameters.Title) || card.Name.Contains(parameters.Title, StringComparison.OrdinalIgnoreCase)) &&
-                (string.IsNullOrEmpty(parameters.Description) || card.Description.Contains(parameters.Description, StringComparison.OrdinalIgnoreCase)))
-            .ToList();
-        
-        if (!cards.Any())
+        BusinessResult deleteCardResult = _cardServices.Delete(id);
+
+        if (deleteCardResult.IsSuccess)
         {
-            return NotFound("No cards found matching the search criteria.");
+            return Ok();
         }
-        
-        return Ok(cards);
+
+        BusinessError? error = deleteCardResult.Error;
+
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
     }
 }
