@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ynov.API", "Ynov.API\Ynov.API.csproj", "{ADD24564-F249-4340-8921-35ABB95B2E5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ynov.Busines", "Ynov.Busines\Ynov.Busines.csproj", "{36D09158-EEAA-41FD-B506-4E21B31DE3DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ynov.Business", "Ynov.Busines\Ynov.Business.csproj", "{36D09158-EEAA-41FD-B506-4E21B31DE3DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ynov.Data", "Ynov.Data\Ynov.Data.csproj", "{FBCF3F14-7B48-47F2-A630-9D87F95A1267}"
 EndProject

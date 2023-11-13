@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ynov.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+455bec3566b3cb3405e7728343ffa6383123905a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+178ca5884d28bea22a870f1a39ba1a6cb46969fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ynov.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ynov.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

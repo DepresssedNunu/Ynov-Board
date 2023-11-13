@@ -1,4 +1,4 @@
-namespace Ynov.Busines.Models;
+namespace Ynov.Business.Models;
 
 public class Card {
     private static int CardIdCounter = 1;

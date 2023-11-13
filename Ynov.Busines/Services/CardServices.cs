@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Ynov.API.DTOitem;
-using Ynov.API.IRespositories;
-using Ynov.API.IServices;
-using Ynov.Busines.Models;
+using Ynov.Business.DTOitem;
+using Ynov.Business.IRespositories;
+using Ynov.Business.IServices;
+using Ynov.Business.Models;
 
-namespace Ynov.API.Services;
+namespace Ynov.Business.Services;
 
 public class CardServices : ICardServices
 {

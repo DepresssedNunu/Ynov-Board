@@ -1,6 +1,6 @@
-using Ynov.API.DTOitem;
-using Ynov.API.IRespositories;
-using Ynov.Busines.Models;
+using Ynov.Business.DTOitem;
+using Ynov.Business.IRespositories;
+using Ynov.Business.Models;
 
 namespace Ynov.Data.Repositories;
 

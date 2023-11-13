@@ -1,4 +1,4 @@
-namespace Ynov.API.DTOitem;
+namespace Ynov.Business.DTOitem;
 
 public class CardInputModel
 {

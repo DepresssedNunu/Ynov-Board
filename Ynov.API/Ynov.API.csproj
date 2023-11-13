@@ -7,11 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Ynov.Busines\Ynov.Busines.csproj" />
+      <ProjectReference Include="..\Ynov.Busines\Ynov.Business.csproj" />
+      <ProjectReference Include="..\Ynov.Data\Ynov.Data.csproj" />
     </ItemGroup>
 
 </Project>

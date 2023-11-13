@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using Ynov.API.DTOitem;
-using Ynov.Busines.Models;
+using Ynov.Business.DTOitem;
+using Ynov.Business.Models;
 
-namespace Ynov.API.IServices;
+namespace Ynov.Business.IServices;
 
 public interface ICardServices
 {

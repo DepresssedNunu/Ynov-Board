@@ -1,6 +1,6 @@
-using Ynov.Busines.Models;
+using Ynov.Business.Models;
 
-namespace Ynov.Busines.Models;
+namespace Ynov.Business.Models;
 
 public class Board {
     public List<Card> CardList = new();

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Ynov.API.DTOitem;
-using Ynov.API.IServices;
-using Ynov.Busines.Models;
+using Ynov.Business.DTOitem;
+using Ynov.Business.IServices;
+using Ynov.Business.Models;
 
 namespace Ynov.API.Controllers;
 

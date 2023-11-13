@@ -1,5 +1,5 @@
 namespace Ynov.API;
-using Ynov.Busines.Models;
+using Business.Models;
 
 public static class Init
 {
