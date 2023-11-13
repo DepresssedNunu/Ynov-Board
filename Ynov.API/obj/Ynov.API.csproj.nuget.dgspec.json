@@ -25,7 +25,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Busines.csproj": {
+                "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Busines.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -72,6 +76,69 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-rc.2.23502.2/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Busines.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Busines.csproj",
+        "projectName": "Ynov.Busines",
+        "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Busines.csproj",
+        "packagesPath": "/Users/flo/.nuget/packages/",
+        "outputPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/flo/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.23, 6.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.23, 6.0.23]"
+            }
+          ],
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

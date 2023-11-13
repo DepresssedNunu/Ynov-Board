@@ -88,6 +88,16 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Ynov.Busines/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Ynov.Busines.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ynov.Busines.dll": {}
+        }
       }
     }
   },
@@ -429,11 +439,17 @@
         "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "Ynov.Busines/1.0.0": {
+      "type": "project",
+      "path": "../Ynov.Busines/Ynov.Busines.csproj",
+      "msbuildProject": "../Ynov.Busines/Ynov.Busines.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Swashbuckle.AspNetCore >= 6.5.0"
+      "Swashbuckle.AspNetCore >= 6.5.0",
+      "Ynov.Busines >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -460,7 +476,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Busines.csproj": {
+              "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Busines.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

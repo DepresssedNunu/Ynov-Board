@@ -58,3 +58,7 @@
 /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/staticwebassets/msbuild.buildTransitive.Ynov.API.props
 /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/staticwebassets.pack.json
 /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/refint/Ynov.API.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/Ynov.API.RazorAssemblyInfo.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/obj/Debug/net6.0/Ynov.API.RazorAssemblyInfo.cs
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/bin/Debug/net6.0/Ynov.Busines.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/bin/Debug/net6.0/Ynov.Busines.pdb
