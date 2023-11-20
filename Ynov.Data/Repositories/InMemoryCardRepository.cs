@@ -46,16 +46,22 @@ public class InMemoryCardRepository : ICardRepository
     
     public Card? Modify(Card cCard)
     {
-        Card card = _cards.Single(c => c.Id == cCard.Id);
-        card.Description = cCard.Description;
-        card.Name = cCard.Name;
+        var card = _cards.Find(c => c.Id == cCard.Id);
+        if (card != null)
+        {
+            card.Description = cCard.Description;
+            card.Name = cCard.Name;
+        }
         return card;
     }
 
     public Card? Move(Card cCard, long newId)
     {
-        Card card = _cards.Single(c => c.Id == cCard.Id);
-        card.Id = newId;
+        var card = _cards.Find(c => c.Id == cCard.Id);
+        if (card != null)
+        {
+            card.Id = newId;
+        }
         return card;
     }
 
