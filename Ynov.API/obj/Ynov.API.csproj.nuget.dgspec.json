@@ -17,15 +17,22 @@
           "/Users/flo/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {}
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Business.csproj": {
+                "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Business.csproj"
+              },
+              "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/Ynov.Data.csproj": {
+                "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/Ynov.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -35,9 +42,17 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -54,20 +69,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.osx-arm64",
-              "version": "[6.0.23, 6.0.23]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -76,7 +77,123 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-rc.2.23502.2/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-rc.2.23502.2/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Business.csproj",
+        "projectName": "Ynov.Business",
+        "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Business.csproj",
+        "packagesPath": "/Users/flo/.nuget/packages/",
+        "outputPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/flo/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-rc.2.23502.2/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/Ynov.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/Ynov.Data.csproj",
+        "projectName": "Ynov.Data",
+        "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/Ynov.Data.csproj",
+        "packagesPath": "/Users/flo/.nuget/packages/",
+        "outputPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/flo/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Business.csproj": {
+                "projectPath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/Ynov.Business.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-rc.2.23502.2/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
