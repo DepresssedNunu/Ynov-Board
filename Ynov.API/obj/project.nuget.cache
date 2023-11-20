@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dU431/Ky4NMIicxMJcgZUp9PaS7GjIqJ0PPtpk06uAZPL3TxlgZ/zF8qQO4Di9eOEraMSe2PQwhK1dnaOJoJFA==",
+  "dgSpecHash": "PPyNb6ehiDrDjOqGlnpSGvixE2I3GYSJllpHs+brPYe4LXwwX46uhwe8L2yQoLlpn7C5sEaECfZZboyqm1T3DA==",
   "success": true,
   "projectFilePath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/Ynov.API.csproj",
   "expectedPackageFiles": [
@@ -64,10 +64,7 @@
     "/Users/flo/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
     "/Users/flo/.nuget/packages/system.text.json/4.7.2/system.text.json.4.7.2.nupkg.sha512",
     "/Users/flo/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "/Users/flo/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
-    "/Users/flo/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.23/microsoft.aspnetcore.app.ref.6.0.23.nupkg.sha512",
-    "/Users/flo/.nuget/packages/microsoft.netcore.app.host.osx-arm64/6.0.23/microsoft.netcore.app.host.osx-arm64.6.0.23.nupkg.sha512",
-    "/Users/flo/.nuget/packages/microsoft.netcore.app.ref/6.0.23/microsoft.netcore.app.ref.6.0.23.nupkg.sha512"
+    "/Users/flo/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
