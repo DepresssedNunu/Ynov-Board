@@ -17,3 +17,7 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = /Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API
 build_property._RazorSourceGeneratorDebug = 
+
+[/Users/flo/Desktop/ynov/C\#/Ynov-Board/Ynov.API/Views/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvaW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
