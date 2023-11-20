@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 
-using Ynov.API;
 using Ynov.Business.IRespositories;
 using Ynov.Business.IServices;
 using Ynov.Business.Services;
@@ -11,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<BoardDbContext>(opt =>
-    opt.UseInMemoryDatabase("CSTrelllo"));
+builder.Services.AddDbContext<BoardDbContext>
+(opt => opt.UseInMemoryDatabase("TrelloDb"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,6 +41,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-Init.Test();
+//Init.Test();
 
 app.Run();

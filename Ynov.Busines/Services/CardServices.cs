@@ -37,6 +37,13 @@ public class CardServices : ICardServices
     
     public BusinessResult<Card> Add(Card card)
     {
+        Board? board = _boardRepository.Get(card.BoardId);
+
+        if (board is null)
+        {
+            return BusinessResult<Card>.FromError($"The board {card.BoardId} do not exist, card cannot be created.", BusinessErrorReason.NotFound);
+        }
+        
         card = _cardRepository.Add(card);
 
         return BusinessResult<Card>.FromSuccess(card);
@@ -81,7 +88,7 @@ public class CardServices : ICardServices
         }
 
         card.Description = mCard.Description;
-        _cardRepository.ModifyCardName(card);
+        _cardRepository.ModifyCardDescription(card);
         return BusinessResult<Card>.FromSuccess(card);
     }
 

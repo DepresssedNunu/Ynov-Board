@@ -3,6 +3,8 @@ using Ynov.Business.IRespositories;
 using Ynov.Business.IServices;
 using Ynov.Business.Models;
 
+using System.Collections.Generic;
+
 namespace Ynov.Business.Services;
 
 public class BoardServices : IBoardServices
@@ -20,7 +22,7 @@ public class BoardServices : IBoardServices
 
         return BusinessResult<List<Board>>.FromSuccess(boards);
     }
-
+    
     public BusinessResult<Board> Get(long id)
     {
         Board? board = _boardRepository.Get(id);

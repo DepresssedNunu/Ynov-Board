@@ -6,7 +6,7 @@ namespace Ynov.Business.IServices;
 public interface ICardServices
 {
     public BusinessResult<List<Card>> Get();
-
+    
     public BusinessResult<Card> Get(long id);
 
     public BusinessResult<Card> Add(Card card);

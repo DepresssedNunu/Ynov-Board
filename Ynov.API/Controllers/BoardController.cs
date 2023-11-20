@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Ynov.Business.DTOitem;
+using Ynov.Business.Dtos;
 using Ynov.Business.IServices;
 using Ynov.Business.Models;
 
@@ -89,8 +90,13 @@ public class BoardController : ControllerBase
 
     //Add a board
     [HttpPost]
-    public ActionResult<Board> Add([FromBody] Board board)
+    public ActionResult<Board> Add([FromBody] CreateBoardDto boardDto)
     {
+        Board board = new()
+        {
+            Name = boardDto.Name
+        };
+        
         BusinessResult<Board> addBoardResult = _boardServices.Add(board);
 
        // Création de la réponse

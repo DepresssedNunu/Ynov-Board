@@ -23,6 +23,10 @@ public class InMemoryCardRepository : ICardRepository
     {
         card.Id = _idCounter++;
         _cards.Add(card);
+
+        Board board = InMemoryBoardRepository._boards.First(b => b.Id == card.BoardId);
+        board.CardList.Add(card);
+        
         return card;
     }
 

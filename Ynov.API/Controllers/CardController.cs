@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Ynov.Business.DTOitem;
+using Ynov.Business.Dtos;
 using Ynov.Business.IServices;
 using Ynov.Business.Models;
 
@@ -41,8 +42,7 @@ public class CardController : ControllerBase
                 return BadRequest(error?.ErrorMessage);
         }
     }
-
-
+    
     // Get a specific card
     [HttpGet("{id}")]
     public ActionResult<Card> GetCard(long id)
@@ -65,12 +65,12 @@ public class CardController : ControllerBase
                 return BadRequest(error?.ErrorMessage);
         }
     }
-    
+
     [HttpGet("search")]
     public ActionResult<List<Card>> Search([FromQuery] SearchQuery parameters)
     {
         BusinessResult<List<Card>> getSearchCardsResult = _cardServices.Search(parameters);
-        
+
         if (getSearchCardsResult.IsSuccess)
         {
             return Ok(getSearchCardsResult.Result);
@@ -80,20 +80,27 @@ public class CardController : ControllerBase
         switch (error.Reason)
         {
             case BusinessErrorReason.BusinessRule:
-            return BadRequest(error?.ErrorMessage);
+                return BadRequest(error?.ErrorMessage);
             case BusinessErrorReason.NotFound:
-            return NotFound(error?.ErrorMessage);
+                return NotFound(error?.ErrorMessage);
             default:
-            return BadRequest(error?.ErrorMessage);
+                return BadRequest(error?.ErrorMessage);
         }
     }
 
     // ADD CARD with description and name to a specific board
     [HttpPost]
-    public ActionResult<Card> Add([FromBody] Card card)
+    public ActionResult<Card> Add([FromBody] CreateCardDto cardDto)
     {
+        Card card = new()
+        {
+            Name = cardDto.Name,
+            Description = cardDto.Description,
+            BoardId = cardDto.BoardId
+        };
+
         BusinessResult<Card> addCardResult = _cardServices.Add(card);
-        
+
         if (addCardResult.IsSuccess)
         {
             Card result = addCardResult.Result!;
@@ -112,13 +119,13 @@ public class CardController : ControllerBase
                 return BadRequest(error?.ErrorMessage);
         }
     }
-    
+
     //Modify card name AND description
     [HttpPut("{id}")]
     public ActionResult<Card> Modify(long id, [FromBody] Card card)
     {
         BusinessResult<Card> updateCardResult = _cardServices.Modify(id, card);
-        
+
         if (updateCardResult.IsSuccess)
         {
             return Ok(updateCardResult.Result);
@@ -141,7 +148,7 @@ public class CardController : ControllerBase
     public ActionResult<Card> ModifyCardName(long id, [FromBody] Card card)
     {
         BusinessResult<Card> updateCardResult = _cardServices.ModifyCardName(id, card);
-        
+
         if (updateCardResult.IsSuccess)
         {
             return Ok(updateCardResult.Result);
@@ -164,7 +171,7 @@ public class CardController : ControllerBase
     public ActionResult<Card> ModifyCardDescription(long id, [FromBody] Card card)
     {
         BusinessResult<Card> updateCardResult = _cardServices.ModifyCardDescription(id, card);
-        
+
         if (updateCardResult.IsSuccess)
         {
             return Ok(updateCardResult.Result);
@@ -186,7 +193,7 @@ public class CardController : ControllerBase
     public ActionResult<Card> Move(long id, long newId)
     {
         BusinessResult<Card> updateCardResult = _cardServices.Move(id, newId);
-        
+
         if (updateCardResult.IsSuccess)
         {
             return Ok(updateCardResult.Result);
@@ -203,7 +210,7 @@ public class CardController : ControllerBase
                 return BadRequest(error?.ErrorMessage);
         }
     }
-    
+
     // DELETE CARD
     [HttpDelete("{id}")]
     public ActionResult Delete(long id)
