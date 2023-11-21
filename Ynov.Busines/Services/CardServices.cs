@@ -44,7 +44,7 @@ public class CardServices : ICardServices
             return BusinessResult<Card>.FromError($"The board {card.BoardId} do not exist, card cannot be created.", BusinessErrorReason.NotFound);
         }
         
-        card = _cardRepository.Add(card);
+        card = _cardRepository.Add(card, board);
 
         return BusinessResult<Card>.FromSuccess(card);
     }
@@ -108,7 +108,7 @@ public class CardServices : ICardServices
             return BusinessResult<Card>.FromError($"The board {id} do not exist", BusinessErrorReason.NotFound);
         }
         
-        _cardRepository.Move(card, newId);
+        _cardRepository.Move(card, newId, board);
         
         return BusinessResult<Card>.FromSuccess(card);
     }

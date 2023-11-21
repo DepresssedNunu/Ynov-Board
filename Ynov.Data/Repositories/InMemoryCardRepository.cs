@@ -19,12 +19,11 @@ public class InMemoryCardRepository : ICardRepository
         return _cards.Find(b => b.Id == id);
     }
 
-    public Card Add(Card card)
+    public Card Add(Card card, Board board)
     {
         card.Id = _idCounter++;
+        card.Board = board;
         _cards.Add(card);
-
-        Board board = InMemoryBoardRepository._boards.First(b => b.Id == card.BoardId);
         board.CardList.Add(card);
         
         return card;
@@ -55,12 +54,13 @@ public class InMemoryCardRepository : ICardRepository
         return card;
     }
 
-    public Card? Move(Card cCard, long newId)
+    public Card? Move(Card cCard, long newId, Board board)
     {
         var card = _cards.Find(c => c.Id == cCard.Id);
         if (card != null)
         {
             card.Id = newId;
+            card.Board = board;
         }
         return card;
     }

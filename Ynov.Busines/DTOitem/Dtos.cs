@@ -19,5 +19,5 @@ public record CreateCardDto
 (
     string Name,
     string Description,
-    [Required] long BoardId
+    long BoardId
 );

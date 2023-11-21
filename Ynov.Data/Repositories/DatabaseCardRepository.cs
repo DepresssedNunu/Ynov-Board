@@ -25,8 +25,9 @@ public class DatabaseCardRepository : ICardRepository
         return _context.Cards.FirstOrDefault(card => card.Id == id);
     }
 
-    public Card Add(Card card)
+    public Card Add(Card card, Board board)
     {
+        card.Board = board;
         _context.Cards.Add(card);
         _context.SaveChanges();
         return card;
@@ -69,12 +70,13 @@ public class DatabaseCardRepository : ICardRepository
         return card;
     }
 
-    public Card? Move(Card mCard, long newId)
+    public Card? Move(Card mCard, long newId, Board board)
     {
         var card = _context.Cards.Find(mCard.Id);
         if (card != null)
         {
             card.Id = newId;
+            card.Board = board;
             _context.SaveChanges();
         }
 

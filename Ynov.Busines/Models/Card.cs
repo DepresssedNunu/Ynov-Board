@@ -8,8 +8,8 @@ public class Card
     public string? Name { get; set; }
     public string? Description { get; set; }
     public DateTime CreationDate { get; protected set; }
-    [Required]
     public long BoardId { get; set; }
+    public Board? Board { get; set; }
 
     public Card()
     {

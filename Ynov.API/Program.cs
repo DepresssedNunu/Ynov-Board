@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-
 using Ynov.Business.IRespositories;
 using Ynov.Business.IServices;
 using Ynov.Business.Services;
@@ -17,11 +16,15 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddControllers();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+DotNetEnv.Env.Load();
+//var connectionString = Environment.GetEnvironmentVariable("YNOV_BOARD_CONNEC_STR");
+var connectionString = Environment.GetEnvironmentVariable("YNOV_BOARD_POSTGRES");
+
+// builder.Services.AddDbContext<BoardDbContext>(options =>
+//     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddDbContext<BoardDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
+    options.UseNpgsql(connectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

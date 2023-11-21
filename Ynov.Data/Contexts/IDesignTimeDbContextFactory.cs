@@ -15,8 +15,12 @@ namespace Ynov.Data.Contexts
                 .Build();
 
             var builder = new DbContextOptionsBuilder<BoardDbContext>();
-            string? connectionString = configuration.GetConnectionString("DefaultConnection");
-            builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            
+            DotNetEnv.Env.Load();
+            //var connectionString = System.Environment.GetEnvironmentVariable("YNOV_BOARD_CONNEC_STR"); 
+            var connectionString = System.Environment.GetEnvironmentVariable("YNOV_BOARD_POSTGRES"); 
+            //builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            builder.UseNpgsql(connectionString);
 
             return new BoardDbContext(builder.Options);
         }
