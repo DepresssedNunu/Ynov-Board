@@ -1,5 +1,5 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-
 using Ynov.Business.IRespositories;
 using Ynov.Business.IServices;
 using Ynov.Business.Services;
@@ -8,10 +8,23 @@ using Ynov.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
+
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<BoardDbContext>
-(opt => opt.UseInMemoryDatabase("TrelloDb"));
+DotNetEnv.Env.Load();
+//var connectionString = Environment.GetEnvironmentVariable("YNOV_BOARD_CONNEC_STR");
+var connectionString = Environment.GetEnvironmentVariable("YNOV_BOARD_POSTGRES");
+
+// builder.Services.AddDbContext<BoardDbContext>(options =>
+//     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddDbContext<BoardDbContext>(options =>
+    options.UseNpgsql(connectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -22,8 +35,8 @@ builder.Services.AddScoped<IBoardServices, BoardServices>();
 builder.Services.AddScoped<ICardServices, CardServices>();
 
 // Repositories
-builder.Services.AddScoped<IBoardRepository, InMemoryBoardRepository>();
-builder.Services.AddScoped<ICardRepository, InMemoryCardRepository>();
+builder.Services.AddScoped<IBoardRepository, DatabaseBoardRepository>();
+builder.Services.AddScoped<ICardRepository, DatabaseCardRepository>();
 
 var app = builder.Build();
 
@@ -40,7 +53,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-//Init.Test();
 
 app.Run();

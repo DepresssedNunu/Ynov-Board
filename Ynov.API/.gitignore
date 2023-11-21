@@ -130,3 +130,5 @@ ehthumbs.db
 *.zip
 *.z
 *.7z
+
+*.env
