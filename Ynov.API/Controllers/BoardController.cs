@@ -21,16 +21,13 @@ public class BoardController : ControllerBase
     [HttpGet]
     public ActionResult<Board> Get()
     {
-        // Appel du service
         BusinessResult<List<Board>> getBoardsResult = _boardServices.Get();
-
-        // Création de la réponse
+        
         if (getBoardsResult.IsSuccess)
         {
             return Ok(getBoardsResult.Result);
         }
-
-        // Gestion des erreurs
+        
         BusinessError? error = getBoardsResult.Error;
         switch (error?.Reason)
         {
@@ -66,6 +63,7 @@ public class BoardController : ControllerBase
         }
     }
     
+    //Sort a board
     [HttpGet("{id}/sort")]
     public ActionResult<Board> SortBoard(long id, [FromQuery] SortValues query)
     {
@@ -90,7 +88,7 @@ public class BoardController : ControllerBase
 
     //Add a board
     [HttpPost]
-    public ActionResult<Board> Add([FromBody] CreateBoardDto boardDto)
+    public ActionResult<Board> Add([FromBody] BoardDto boardDto)
     {
         Board board = new()
         {
@@ -122,9 +120,14 @@ public class BoardController : ControllerBase
 
     //Update the name of a board
     [HttpPut("{id}")]
-    public ActionResult<Board> Modify(long id, [FromBody] Board mBoard)
+    public ActionResult<Board> Modify(long id, [FromBody] BoardDto boardDto)
     {
-        BusinessResult<Board> updateBoardResult = _boardServices.Modify(id, mBoard);
+        Board board = new()
+        {
+            Name = boardDto.Name
+        };
+
+        BusinessResult<Board> updateBoardResult = _boardServices.Modify(id, board);
 
         if (updateBoardResult.IsSuccess)
         {

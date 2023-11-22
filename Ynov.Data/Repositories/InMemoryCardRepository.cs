@@ -4,7 +4,7 @@ using Ynov.Business.Models;
 
 namespace Ynov.Data.Repositories;
 
-public class InMemoryCardRepository : ICardRepository
+public class InMemoryCardRepository
 {
     public static long _idCounter = 1;
     public static List<Card> _cards = new();
@@ -22,7 +22,6 @@ public class InMemoryCardRepository : ICardRepository
     public Card Add(Card card, Board board)
     {
         card.Id = _idCounter++;
-        card.Board = board;
         _cards.Add(card);
         board.CardList.Add(card);
         
@@ -54,13 +53,12 @@ public class InMemoryCardRepository : ICardRepository
         return card;
     }
 
-    public Card? Move(Card cCard, long newId, Board board)
+    public Card? Move(Card cCard, long newId)
     {
         var card = _cards.Find(c => c.Id == cCard.Id);
         if (card != null)
         {
             card.Id = newId;
-            card.Board = board;
         }
         return card;
     }

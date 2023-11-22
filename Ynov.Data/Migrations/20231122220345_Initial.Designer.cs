@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Ynov.Data.Contexts;
@@ -11,9 +12,11 @@ using Ynov.Data.Contexts;
 namespace Ynov.Data.Migrations
 {
     [DbContext(typeof(BoardDbContext))]
-    partial class BoardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231122220345_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

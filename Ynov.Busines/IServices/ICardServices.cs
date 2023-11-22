@@ -6,7 +6,7 @@ namespace Ynov.Business.IServices;
 public interface ICardServices
 {
     public BusinessResult<List<Card>> Get();
-    
+
     public BusinessResult<Card> Get(long id);
 
     public BusinessResult<Card> Add(Card card);
@@ -15,11 +15,13 @@ public interface ICardServices
 
     public BusinessResult<Card> ModifyCardName(long id, Card card);
 
-    public BusinessResult<Card> ModifyCardDescription(long id, Card card); 
-    
-    public BusinessResult<Card> Move(long id, long newId);
+    public BusinessResult<Card> ModifyCardDescription(long id, Card card);
 
-    public BusinessResult<List<Card>> Search(SearchQuery parameters);
+    public BusinessResult<Card> Move(long id, long newId);
     
+    public BusinessResult<Card> SetPriority(long id, Priority priority);
+
+    public BusinessResult<List<Card>> Search(SearchQuery parameters, bool caseSensible);
+
     public BusinessResult Delete(long id);
 }

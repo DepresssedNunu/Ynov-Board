@@ -7,8 +7,3 @@ public enum SortValues
     TitleAscending,
     TitleDescending,
 }
-
-public class BoardSort
-{
-    public SortValues Query { get; set; }
-}

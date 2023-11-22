@@ -67,9 +67,9 @@ public class CardController : ControllerBase
     }
 
     [HttpGet("search")]
-    public ActionResult<List<Card>> Search([FromQuery] SearchQuery parameters)
+    public ActionResult<List<Card>> Search([FromQuery] SearchQuery parameters, bool caseSensible)
     {
-        BusinessResult<List<Card>> getSearchCardsResult = _cardServices.Search(parameters);
+        BusinessResult<List<Card>> getSearchCardsResult = _cardServices.Search(parameters, caseSensible);
 
         if (getSearchCardsResult.IsSuccess)
         {
@@ -96,7 +96,8 @@ public class CardController : ControllerBase
         {
             Name = cardDto.Name,
             Description = cardDto.Description,
-            BoardId = cardDto.BoardId
+            BoardId = cardDto.BoardId,
+            Priority = cardDto.Priority
         };
 
         BusinessResult<Card> addCardResult = _cardServices.Add(card);
@@ -122,8 +123,14 @@ public class CardController : ControllerBase
 
     //Modify card name AND description
     [HttpPut("{id}")]
-    public ActionResult<Card> Modify(long id, [FromBody] Card card)
+    public ActionResult<Card> Modify(long id, [FromBody] ModifyCardDto cardDto)
     {
+        Card card = new()
+        {
+            Name = cardDto.Name,
+            Description = cardDto.Description,
+        };
+        
         BusinessResult<Card> updateCardResult = _cardServices.Modify(id, card);
 
         if (updateCardResult.IsSuccess)
@@ -145,8 +152,13 @@ public class CardController : ControllerBase
 
     //Modify card name
     [HttpPatch("{id}/name")]
-    public ActionResult<Card> ModifyCardName(long id, [FromBody] Card card)
+    public ActionResult<Card> ModifyCardName(long id, [FromBody] ModifyCardNameDto cardDto)
     {
+        Card card = new()
+        {
+            Name = cardDto.Name,
+        };
+        
         BusinessResult<Card> updateCardResult = _cardServices.ModifyCardName(id, card);
 
         if (updateCardResult.IsSuccess)
@@ -168,8 +180,13 @@ public class CardController : ControllerBase
 
     //Modify card name
     [HttpPatch("{id}/description")]
-    public ActionResult<Card> ModifyCardDescription(long id, [FromBody] Card card)
+    public ActionResult<Card> ModifyCardDescription(long id, [FromBody] ModifyCardDescriptionDto cardDto)
     {
+        Card card = new()
+        {
+            Description = cardDto.Description,
+        };
+        
         BusinessResult<Card> updateCardResult = _cardServices.ModifyCardDescription(id, card);
 
         if (updateCardResult.IsSuccess)
@@ -189,10 +206,34 @@ public class CardController : ControllerBase
         }
     }
 
+    //Move a card form a board to an other
     [HttpPatch("{id}/move")]
     public ActionResult<Card> Move(long id, long newId)
     {
         BusinessResult<Card> updateCardResult = _cardServices.Move(id, newId);
+
+        if (updateCardResult.IsSuccess)
+        {
+            return Ok(updateCardResult.Result);
+        }
+
+        BusinessError? error = updateCardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
+    }
+    
+    //Set or change the priority label of a card
+    [HttpPatch("{id}/set_priority")]
+    public ActionResult<Card> SetPriority(long id, Priority priority)
+    {
+        BusinessResult<Card> updateCardResult = _cardServices.SetPriority(id, priority);
 
         if (updateCardResult.IsSuccess)
         {

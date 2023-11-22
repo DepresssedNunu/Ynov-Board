@@ -101,21 +101,35 @@ public class CardServices : ICardServices
             return BusinessResult<Card>.FromError($"The card {id} do not exist", BusinessErrorReason.NotFound);
         }
 
-        Board? board = _boardRepository.Get(newId);
+        Board? newBoard = _boardRepository.Get(newId);
         
-        if (board is null)
+        if (newBoard is null)
         {
-            return BusinessResult<Card>.FromError($"The board {id} do not exist", BusinessErrorReason.NotFound);
+            return BusinessResult<Card>.FromError($"The board {newId} do not exist", BusinessErrorReason.NotFound);
         }
         
-        _cardRepository.Move(card, newId, board);
+        _cardRepository.Move(card, newId, newBoard);
         
         return BusinessResult<Card>.FromSuccess(card);
     }
 
-    public BusinessResult<List<Card>> Search(SearchQuery parameters)
+    public BusinessResult<Card> SetPriority(long id, Priority priority)
     {
-        List<Card>? cards = _cardRepository.Search(parameters);
+        Card? card = _cardRepository.Get(id);
+        
+        if (card is null)
+        {
+            return BusinessResult<Card>.FromError($"The card {id} do not exist", BusinessErrorReason.NotFound);
+        }
+        
+        _cardRepository.SetPriority(card, priority);
+        
+        return BusinessResult<Card>.FromSuccess(card);
+    }
+    
+    public BusinessResult<List<Card>> Search(SearchQuery parameters, bool caseSensible)
+    {
+        List<Card>? cards = _cardRepository.Search(parameters, caseSensible);
         
         return BusinessResult<List<Card>>.FromSuccess(cards);
     }

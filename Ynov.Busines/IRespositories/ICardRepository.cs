@@ -11,7 +11,8 @@ public interface ICardRepository
     public Card? ModifyCardName(Card card);
     public Card? ModifyCardDescription(Card card);
     public Card? Modify(Card card);
-    public Card? Move(Card card, long newId, Board board);
-    public List<Card> Search(SearchQuery parameters);
+    public Card? Move(Card card, long newId, Board newBoard);
+    public Card? SetPriority(Card card, Priority priority);
+    public List<Card> Search(SearchQuery parameters, bool caseSensible);
     public void Delete(Card card);
 }

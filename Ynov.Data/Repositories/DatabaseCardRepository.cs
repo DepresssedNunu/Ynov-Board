@@ -27,7 +27,8 @@ public class DatabaseCardRepository : ICardRepository
 
     public Card Add(Card card, Board board)
     {
-        card.Board = board;
+        card.CreationDate = DateTime.UtcNow;
+        board.CardList.Add(card);
         _context.Cards.Add(card);
         _context.SaveChanges();
         return card;
@@ -70,23 +71,45 @@ public class DatabaseCardRepository : ICardRepository
         return card;
     }
 
-    public Card? Move(Card mCard, long newId, Board board)
+    public Card? Move(Card mCard, long newId, Board newBoard)
     {
         var card = _context.Cards.Find(mCard.Id);
-        if (card != null)
+        var oldBoard = _context.Boards.Find(mCard.BoardId);
+        if (card != null && oldBoard != null)
         {
-            card.Id = newId;
-            card.Board = board;
+            card.BoardId = newId;
+            oldBoard.CardList.Remove(card);
+            newBoard.CardList.Add(card);
             _context.SaveChanges();
         }
 
         return card;
     }
-    public List<Card> Search(SearchQuery parameters)
+    
+    public Card? SetPriority(Card mCard, Priority priority)
     {
-        var cards = _context.Cards.Where(card => 
-                (string.IsNullOrEmpty(parameters.Title) || card.Name.Contains(parameters.Title, StringComparison.OrdinalIgnoreCase)) &&
-                (string.IsNullOrEmpty(parameters.Description) || card.Description.Contains(parameters.Description, StringComparison.OrdinalIgnoreCase)))
+        var card = _context.Cards.Find(mCard);
+        if (card != null)
+        {
+            card.Priority = priority;
+            _context.SaveChanges();
+        }
+
+        return card;
+    }
+    
+    public List<Card> Search(SearchQuery parameters, bool caseSensible)
+    {
+        if (!caseSensible)
+        {
+            parameters.Title = string.IsNullOrEmpty(parameters.Title) ? "" : parameters.Title.ToLower();
+            parameters.Description = string.IsNullOrEmpty(parameters.Description) ? "" : parameters.Description.ToLower();
+        }
+        
+        var cards = _context.Cards
+            .Where(card =>
+                (string.IsNullOrEmpty(parameters.Title) || card.Name.ToLower().Contains(parameters.Title)) &&
+                (string.IsNullOrEmpty(parameters.Description) || card.Description.ToLower().Contains(parameters.Description)))
             .ToList();
 
         return cards;

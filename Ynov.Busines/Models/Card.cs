@@ -5,13 +5,24 @@ namespace Ynov.Business.Models;
 public class Card
 {
     public long Id { get; set; }
-    public string? Name { get; set; }
-    public string? Description { get; set; }
-    public DateTime CreationDate { get; protected set; }
-    public long BoardId { get; set; }
-    public Board? Board { get; set; }
+    [Required]
+    [StringLength(20)]
+    public string Name { get; set; }
 
-    public Card()
-    {
-    }
+    [StringLength(50)]
+    public string? Description { get; set; }
+    public DateTime CreationDate { get; set; }
+    
+    [Required]
+    public long BoardId { get; set; }
+    public Priority? Priority { get; set; }
+}
+
+public enum Priority
+{
+    None,
+    Low,
+    Medium,
+    High,
+    Urgent
 }
