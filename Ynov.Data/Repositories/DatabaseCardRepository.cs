@@ -87,9 +87,11 @@ public class DatabaseCardRepository : ICardRepository
     
     public Card? SetPriority(Card mCard, Priority priority)
     {
-        var card = _context.Cards.Find(mCard);
+        var card = _context.Cards.Find(mCard.Id);
         if (card != null)
         {
+            Console.Write(priority);
+            Console.WriteLine("----------------------------------------------------------------");
             card.Priority = priority;
             _context.SaveChanges();
         }
