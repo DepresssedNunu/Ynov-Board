@@ -5,6 +5,8 @@ using Ynov.Business.Models;
 
 namespace Ynov.API.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class UserController : ControllerBase
 {
     private readonly IUserServices _userServices;
