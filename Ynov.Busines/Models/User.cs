@@ -12,7 +12,6 @@ public class User
     [StringLength(40)]
     public string Email { get; set; }
     [Required]
-    [StringLength(40)]
     [MinLength(8)]
     public string PasswordHash { get; set; }
     public long Id { get; set; }

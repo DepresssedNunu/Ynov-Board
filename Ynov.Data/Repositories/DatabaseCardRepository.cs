@@ -90,8 +90,19 @@ public class DatabaseCardRepository : ICardRepository
         var card = _context.Cards.Find(mCard.Id);
         if (card != null)
         {
-            Console.Write(priority);
             card.Priority = priority;
+            _context.SaveChanges();
+        }
+
+        return card;
+    }
+    
+    public Card? SetUser(Card mCard, User user)
+    {
+        var card = _context.Cards.Find(mCard.Id);
+        if (card != null)
+        {
+            card.userId = user.Id;
             _context.SaveChanges();
         }
 

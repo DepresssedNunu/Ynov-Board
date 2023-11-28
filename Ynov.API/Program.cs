@@ -33,10 +33,13 @@ builder.Services.AddSwaggerGen();
 // Services
 builder.Services.AddScoped<IBoardServices, BoardServices>();
 builder.Services.AddScoped<ICardServices, CardServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IPasswordServices, PasswordServices>();
 
 // Repositories
 builder.Services.AddScoped<IBoardRepository, DatabaseBoardRepository>();
 builder.Services.AddScoped<ICardRepository, DatabaseCardRepository>();
+builder.Services.AddScoped<IUserRepository, DatabaseUserRepository>();
 
 var app = builder.Build();
 

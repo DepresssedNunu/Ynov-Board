@@ -20,6 +20,8 @@ public interface ICardServices
     public BusinessResult<Card> Move(long id, long newId);
     
     public BusinessResult<Card> SetPriority(long id, Priority priority);
+    
+    public BusinessResult<Card> SetUser(long id, User user);
 
     public BusinessResult<List<Card>> Search(SearchQuery parameters, bool caseSensible);
 

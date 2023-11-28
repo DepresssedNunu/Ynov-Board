@@ -13,6 +13,7 @@ public interface ICardRepository
     public Card? Modify(Card card);
     public Card? Move(Card card, long newId, Board newBoard);
     public Card? SetPriority(Card card, Priority priority);
+    public Card? SetUser(Card card, User user);
     public List<Card> Search(SearchQuery parameters, bool caseSensible);
     public void Delete(Card card);
 }

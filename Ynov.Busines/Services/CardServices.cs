@@ -9,11 +9,13 @@ public class CardServices : ICardServices
 {
     private readonly ICardRepository _cardRepository;
     private readonly IBoardRepository _boardRepository;
+    private readonly IUserRepository _userRepository;
 
-    public CardServices(ICardRepository cardRepository, IBoardRepository boardRepository)
+    public CardServices(ICardRepository cardRepository, IBoardRepository boardRepository, IUserRepository userRepository)
     {
         _cardRepository = cardRepository;
         _boardRepository = boardRepository;
+        _userRepository = userRepository;
     }
 
     public BusinessResult<List<Card>> Get()
@@ -123,6 +125,22 @@ public class CardServices : ICardServices
         }
         
         _cardRepository.SetPriority(card, priority);
+        
+        return BusinessResult<Card>.FromSuccess(card);
+    }
+    
+    public BusinessResult<Card> SetUser(long id, User uUser)
+    {
+        Card? card = _cardRepository.Get(id);
+        
+        if (card is null)
+        {
+            return BusinessResult<Card>.FromError($"The card {id} do not exist", BusinessErrorReason.NotFound);
+        }
+
+        User? user = _userRepository.Get(uUser.Id);
+        
+        _cardRepository.SetUser(card, user);
         
         return BusinessResult<Card>.FromSuccess(card);
     }

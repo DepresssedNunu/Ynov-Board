@@ -6,6 +6,7 @@ public class PasswordServices : IPasswordServices
 {
     public string HashPassword(string password)
     {
+        Console.WriteLine("hash init");
         return BCrypt.Net.BCrypt.HashPassword(password);
     }
 

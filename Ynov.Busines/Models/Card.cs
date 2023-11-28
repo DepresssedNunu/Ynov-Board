@@ -17,7 +17,7 @@ public class Card
     public long BoardId { get; set; }
     public Priority? Priority { get; set; }
 
-    public List<long>? userId { get; set; }
+    public long? userId { get; set; }
 }
 
 public enum Priority

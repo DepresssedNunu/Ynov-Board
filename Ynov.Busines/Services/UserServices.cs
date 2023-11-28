@@ -9,9 +9,9 @@ namespace Ynov.Business.Services;
 public class UserServices : IUserServices
 {
     private readonly IUserRepository _userRepository;
-    private readonly PasswordServices _passwordServices;
+    private readonly IPasswordServices _passwordServices;
 
-    public UserServices(IUserRepository userRepository, PasswordServices passwordServices)
+    public UserServices(IUserRepository userRepository, IPasswordServices passwordServices)
     {
         _userRepository = userRepository;
         _passwordServices = passwordServices;
@@ -40,6 +40,7 @@ public class UserServices : IUserServices
     public BusinessResult<User> Add(User uUser)
     {
         uUser.PasswordHash = _passwordServices.HashPassword(uUser.PasswordHash);
+        
         try
         {
             User? user = _userRepository.Add(uUser);

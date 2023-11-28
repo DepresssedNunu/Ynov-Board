@@ -73,16 +73,16 @@ public class UserController : ControllerBase
             Email = userDto.Email
         };
         
-        BusinessResult<User> addresult = _userServices.Add(user);
+        BusinessResult<User> addResult = _userServices.Add(user);
 
-        if (addresult.IsSuccess)
+        if (addResult.IsSuccess)
         {
-            User result = addresult.Result!;
+            User result = addResult.Result!;
             
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
-        BusinessError? error = addresult.Error;
+        BusinessError? error = addResult.Error;
         switch (error?.Reason)
         {
             case BusinessErrorReason.BusinessRule:
