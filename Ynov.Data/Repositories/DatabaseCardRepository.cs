@@ -91,7 +91,6 @@ public class DatabaseCardRepository : ICardRepository
         if (card != null)
         {
             Console.Write(priority);
-            Console.WriteLine("----------------------------------------------------------------");
             card.Priority = priority;
             _context.SaveChanges();
         }

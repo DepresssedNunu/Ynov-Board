@@ -252,7 +252,7 @@ public class CardController : ControllerBase
         }
     }
 
-    // DELETE CARD
+    // Delete card
     [HttpDelete("{id}")]
     public ActionResult Delete(long id)
     {

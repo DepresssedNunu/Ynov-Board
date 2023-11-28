@@ -8,7 +8,15 @@ public class BoardDbContext : DbContext
     public BoardDbContext(DbContextOptions<BoardDbContext> options) : base(options)
     {
     }
-    
+
     public DbSet<Board> Boards { get; set; } = null!;
     public DbSet<Card> Cards { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+    }
 }

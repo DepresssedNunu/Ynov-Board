@@ -65,5 +65,7 @@ namespace Ynov.Business.Models
         BusinessRule = 400,
         NotFound = 404,
         InternalServerError = 501,
+        DbConflict = 409,
+        Forbidden = 403
     }
 }

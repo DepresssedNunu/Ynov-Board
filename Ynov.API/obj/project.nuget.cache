@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "JD7bgFstp5zttGdVgn2OuXmEiPSWLSN7wErgkLS85fSPDJWln+vLVIS300lfGYnoTQ+8Y5JoenakvW0+PWpK/Q==",
+  "dgSpecHash": "Qcw1d1NzRiGUlFV85jIZNkZ+PSxPLxfWC6EOCho0g1YXtA7mcwPvdJv7vQgmFon42Ysg1pIqJts4Xc4CaAcEZQ==",
   "success": true,
   "projectFilePath": "/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.API/Ynov.API.csproj",
   "expectedPackageFiles": [
     "/Users/flo/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/flo/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
+    "/Users/flo/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/flo/.nuget/packages/dotnetenv/2.5.0/dotnetenv.2.5.0.nupkg.sha512",
     "/Users/flo/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/flo/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

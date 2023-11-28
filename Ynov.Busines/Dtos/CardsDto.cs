@@ -7,7 +7,7 @@ public record CreateCardDto
     string Name,
     string Description,
     long BoardId,
-    Priority Priority
+    Priority? Priority
 );
 
 public record ModifyCardDto
