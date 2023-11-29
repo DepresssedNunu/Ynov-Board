@@ -7,9 +7,9 @@ namespace Ynov.Data.Repositories;
 
 public class DatabaseCardRepository : ICardRepository
 {
-    private readonly BoardDbContext _context;
+    private readonly TrellodDbContext _context;
 
-    public DatabaseCardRepository(BoardDbContext context)
+    public DatabaseCardRepository(TrellodDbContext context)
     {
         _context = context;
     }
@@ -102,7 +102,19 @@ public class DatabaseCardRepository : ICardRepository
         var card = _context.Cards.Find(mCard.Id);
         if (card != null)
         {
-            card.userId = user.Id;
+            card.UserId = user.Id;
+            _context.SaveChanges();
+        }
+
+        return card;
+    }
+    
+    public Card? SetLabel(Card mCard, Label label)
+    {
+        var card = _context.Cards.Find(mCard.Id);
+        if (card != null)
+        {
+            card.LabelId = label.Id;
             _context.SaveChanges();
         }
 

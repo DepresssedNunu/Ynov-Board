@@ -10,12 +10,14 @@ public class CardServices : ICardServices
     private readonly ICardRepository _cardRepository;
     private readonly IBoardRepository _boardRepository;
     private readonly IUserRepository _userRepository;
+    private readonly ILabelRepository _labelRepository;
 
-    public CardServices(ICardRepository cardRepository, IBoardRepository boardRepository, IUserRepository userRepository)
+    public CardServices(ICardRepository cardRepository, IBoardRepository boardRepository, IUserRepository userRepository, ILabelRepository labelRepository)
     {
         _cardRepository = cardRepository;
         _boardRepository = boardRepository;
         _userRepository = userRepository;
+        _labelRepository = labelRepository;
     }
 
     public BusinessResult<List<Card>> Get()
@@ -140,7 +142,33 @@ public class CardServices : ICardServices
 
         User? user = _userRepository.Get(uUser.Id);
         
+        if (user is null)
+        {
+            return BusinessResult<Card>.FromError($"The user {id} do not exist", BusinessErrorReason.NotFound);
+        }
+        
         _cardRepository.SetUser(card, user);
+        
+        return BusinessResult<Card>.FromSuccess(card);
+    }
+    
+    public BusinessResult<Card> SetLabel(long id, Label lLabel)
+    {
+        Card? card = _cardRepository.Get(id);
+        
+        if (card is null)
+        {
+            return BusinessResult<Card>.FromError($"The card {id} do not exist", BusinessErrorReason.NotFound);
+        }
+
+        Label? label = _labelRepository.Get(lLabel.Id);
+        
+        if (label is null)
+        {
+            return BusinessResult<Card>.FromError($"The label {lLabel.Name} do not exist", BusinessErrorReason.NotFound);
+        }
+        
+        _cardRepository.SetLabel(card, label);
         
         return BusinessResult<Card>.FromSuccess(card);
     }

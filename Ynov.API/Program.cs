@@ -17,13 +17,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddControllers();
 
 DotNetEnv.Env.Load();
-//var connectionString = Environment.GetEnvironmentVariable("YNOV_BOARD_CONNEC_STR");
 var connectionString = Environment.GetEnvironmentVariable("YNOV_BOARD_POSTGRES");
 
-// builder.Services.AddDbContext<BoardDbContext>(options =>
-//     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
-builder.Services.AddDbContext<BoardDbContext>(options =>
+builder.Services.AddDbContext<TrellodDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,12 +30,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBoardServices, BoardServices>();
 builder.Services.AddScoped<ICardServices, CardServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ILabelServices, LabelServices>();
 builder.Services.AddScoped<IPasswordServices, PasswordServices>();
 
 // Repositories
 builder.Services.AddScoped<IBoardRepository, DatabaseBoardRepository>();
 builder.Services.AddScoped<ICardRepository, DatabaseCardRepository>();
 builder.Services.AddScoped<IUserRepository, DatabaseUserRepository>();
+builder.Services.AddScoped<ILabelRepository, DatabaseLabelRepository>();
 
 var app = builder.Build();
 

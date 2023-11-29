@@ -229,9 +229,9 @@ public class CardController : ControllerBase
         }
     }
     
-    //Move assign an user to a card
+    //Assign an user to a card
     [HttpPatch("{id}/setUser")]
-    public ActionResult<Card> SetUser(long id, AssignCardNameDto dto)
+    public ActionResult<Card> SetUser(long id, AssignCardUserDto dto)
     {
         User user = new()
         {
@@ -258,6 +258,34 @@ public class CardController : ControllerBase
         }
     }
 
+    //Assign an label to a card
+    [HttpPatch("{id}/setLabel")]
+    public ActionResult<Card> SetLabel(long id, AssignCardLabelDto dto)
+    {
+        Label label = new()
+        {
+            Id = dto.labelId
+        };
+        
+        
+        BusinessResult<Card> updateCardResult = _cardServices.SetLabel(id, label);
+
+        if (updateCardResult.IsSuccess)
+        {
+            return Ok(updateCardResult.Result);
+        }
+
+        BusinessError? error = updateCardResult.Error;
+        switch (error?.Reason)
+        {
+            case BusinessErrorReason.BusinessRule:
+                return BadRequest(error?.ErrorMessage);
+            case BusinessErrorReason.NotFound:
+                return NotFound(error?.ErrorMessage);
+            default:
+                return BadRequest(error?.ErrorMessage);
+        }
+    }
     
     //Set or change the priority label of a card
     [HttpPatch("{id}/set_priority")]

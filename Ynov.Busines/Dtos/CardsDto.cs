@@ -26,7 +26,12 @@ public record ModifyCardNameDto
     string Name
 );
 
-public record AssignCardNameDto
+public record AssignCardUserDto
 ( 
     long UserId
+);
+
+public record AssignCardLabelDto
+( 
+    long labelId
 );

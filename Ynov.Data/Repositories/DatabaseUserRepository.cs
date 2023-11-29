@@ -8,9 +8,9 @@ namespace Ynov.Data.Repositories;
 
 public class DatabaseUserRepository : IUserRepository
 {
-    private readonly BoardDbContext _context;
+    private readonly TrellodDbContext _context;
 
-    public DatabaseUserRepository(BoardDbContext context)
+    public DatabaseUserRepository(TrellodDbContext context)
     {
         _context = context;
     }
@@ -29,15 +29,15 @@ public class DatabaseUserRepository : IUserRepository
     {
         var unique = _context.Users.FirstOrDefault(u => u.Email == user.Email);
 
-        if (unique != null)
+        if (unique is null)
         {
-            throw new UserAlreadyExistsException("A user with this email already exists.");
+            // verification of the password requirement in the front.
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return user;
         }
-        
-        // verification of the password requirement in the front.
-        _context.Users.Add(user);
-        _context.SaveChanges();
-        return user;
+
+        throw new UserAlreadyExistsException("A user with this email already exists.");
     }
 
     public User? ModifyUserName(User uUser)
@@ -48,6 +48,7 @@ public class DatabaseUserRepository : IUserRepository
             user.Name = uUser.Name;
             _context.SaveChanges();
         }
+
         return user;
     }
 
@@ -62,7 +63,7 @@ public class DatabaseUserRepository : IUserRepository
 
         return user;
     }
-    
+
     public void Delete(User user)
     {
         _context.Users.Remove(user);

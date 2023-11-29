@@ -8,27 +8,27 @@ namespace Ynov.API.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class BoardController : ControllerBase
+public class LabelController : ControllerBase
 {
-    private readonly IBoardServices _boardServices;
+    private readonly ILabelServices _labelServices;
 
-    public BoardController(IBoardServices boardServices)
+    public LabelController(ILabelServices labelServices)
     {
-        _boardServices = boardServices;
+        _labelServices = labelServices;
     }
 
-    //Get all boards
+    //Get all labels
     [HttpGet]
-    public ActionResult<Board> Get()
+    public ActionResult<Label> Get()
     {
-        BusinessResult<List<Board>> getBoardsResult = _boardServices.Get();
+        BusinessResult<List<Label>> getLabelsResult = _labelServices.Get();
         
-        if (getBoardsResult.IsSuccess)
+        if (getLabelsResult.IsSuccess)
         {
-            return Ok(getBoardsResult.Result);
+            return Ok(getLabelsResult.Result);
         }
         
-        BusinessError? error = getBoardsResult.Error;
+        BusinessError? error = getLabelsResult.Error;
         switch (error?.Reason)
         {
             case BusinessErrorReason.BusinessRule:
@@ -40,42 +40,18 @@ public class BoardController : ControllerBase
         }
     }
 
-    //Get a specific board
+    //Get a specific label
     [HttpGet("{id}")]
-    public ActionResult<Board> Get(long id)
+    public ActionResult<Label> Get(long id)
     {
-        BusinessResult<Board> getBoardResult = _boardServices.Get(id);
+        BusinessResult<Label> getLabelResult = _labelServices.Get(id);
 
-        if (getBoardResult.IsSuccess)
+        if (getLabelResult.IsSuccess)
         {
-            return Ok(getBoardResult.Result);
+            return Ok(getLabelResult.Result);
         }
 
-        BusinessError? error = getBoardResult.Error;
-        switch (error?.Reason)
-        {
-            case BusinessErrorReason.BusinessRule:
-                return BadRequest(error?.ErrorMessage);
-            case BusinessErrorReason.NotFound:
-                return NotFound(error?.ErrorMessage);
-            default:
-                return BadRequest(error?.ErrorMessage);
-        }
-    }
-    
-    // TODO : FINIR LE SORT
-    //Sort a board
-    [HttpGet("{id}/sort")]
-    public ActionResult<Board> SortBoard(long id, [FromQuery] SortValues query)
-    {
-        BusinessResult<Board> sortBoardResult = _boardServices.Sort(id, query);
-        
-        if (sortBoardResult.IsSuccess)
-        {
-            return Ok(sortBoardResult.Result);
-        }
-
-        BusinessError? error = sortBoardResult.Error;
+        BusinessError? error = getLabelResult.Error;
         switch (error?.Reason)
         {
             case BusinessErrorReason.BusinessRule:
@@ -87,27 +63,27 @@ public class BoardController : ControllerBase
         }
     }
 
-    //Add a board
+    //Add a label
     [HttpPost]
-    public ActionResult<Board> Add([FromBody] BoardDto boardDto)
+    public ActionResult<Label> Add([FromBody] LabelDto labelDto)
     {
-        Board board = new()
+        Label label = new()
         {
-            Name = boardDto.Name
+            Name = labelDto.Name
         };
         
-        BusinessResult<Board> addBoardResult = _boardServices.Add(board);
+        BusinessResult<Label> addLabelResult = _labelServices.Add(label);
 
        // Création de la réponse
-        if (addBoardResult.IsSuccess)
+        if (addLabelResult.IsSuccess)
         {
-            Board result = addBoardResult.Result!;
+            Label result = addLabelResult.Result!;
             
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
         // Gestion des erreurs
-        BusinessError? error = addBoardResult.Error;
+        BusinessError? error = addLabelResult.Error;
         switch (error?.Reason)
         {
             case BusinessErrorReason.BusinessRule:
@@ -119,23 +95,23 @@ public class BoardController : ControllerBase
         }
     }
 
-    //Update the name of a board
+    //Update the name of a label
     [HttpPut("{id}")]
-    public ActionResult<Board> Modify(long id, [FromBody] BoardDto boardDto)
+    public ActionResult<Label> Modify(long id, [FromBody] LabelDto labelDto)
     {
-        Board board = new()
+        Label label = new()
         {
-            Name = boardDto.Name
+            Name = labelDto.Name
         };
 
-        BusinessResult<Board> updateBoardResult = _boardServices.Modify(id, board);
+        BusinessResult<Label> updateLabelResult = _labelServices.Modify(id, label);
 
-        if (updateBoardResult.IsSuccess)
+        if (updateLabelResult.IsSuccess)
         {
-            return Ok(updateBoardResult.Result);
+            return Ok(updateLabelResult.Result);
         }
 
-        BusinessError? error = updateBoardResult.Error;
+        BusinessError? error = updateLabelResult.Error;
         switch (error?.Reason)
         {
             case BusinessErrorReason.BusinessRule:
@@ -147,18 +123,18 @@ public class BoardController : ControllerBase
         }
     }
 
-    //Delete a board
+    //Delete a label
     [HttpDelete("{id}")]
     public ActionResult Delete(long id)
     {
-        BusinessResult deleteBoardResult = _boardServices.Delete(id);
+        BusinessResult deleteLabelResult = _labelServices.Delete(id);
 
-        if (deleteBoardResult.IsSuccess)
+        if (deleteLabelResult.IsSuccess)
         {
             return Ok();
         }
 
-        BusinessError? error = deleteBoardResult.Error;
+        BusinessError? error = deleteLabelResult.Error;
         switch (error?.Reason)
         {
             case BusinessErrorReason.BusinessRule:

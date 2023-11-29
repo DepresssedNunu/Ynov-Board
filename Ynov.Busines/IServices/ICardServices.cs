@@ -22,6 +22,8 @@ public interface ICardServices
     public BusinessResult<Card> SetPriority(long id, Priority priority);
     
     public BusinessResult<Card> SetUser(long id, User user);
+    
+    public BusinessResult<Card> SetLabel(long id, Label label);
 
     public BusinessResult<List<Card>> Search(SearchQuery parameters, bool caseSensible);
 

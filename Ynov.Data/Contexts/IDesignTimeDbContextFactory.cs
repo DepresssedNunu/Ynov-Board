@@ -5,22 +5,22 @@ using System.IO;
 
 namespace Ynov.Data.Contexts
 {
-    public class BoardDbContextFactory : IDesignTimeDbContextFactory<BoardDbContext>
+    public class BoardDbContextFactory : IDesignTimeDbContextFactory<TrellodDbContext>
     {
-        public BoardDbContext CreateDbContext(string[] args)
+        public TrellodDbContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            var builder = new DbContextOptionsBuilder<BoardDbContext>();
+            var builder = new DbContextOptionsBuilder<TrellodDbContext>();
             
             DotNetEnv.Env.Load();
             var connectionString = System.Environment.GetEnvironmentVariable("YNOV_BOARD_POSTGRES"); 
             builder.UseNpgsql(connectionString);
 
-            return new BoardDbContext(builder.Options);
+            return new TrellodDbContext(builder.Options);
         }
     }
 }

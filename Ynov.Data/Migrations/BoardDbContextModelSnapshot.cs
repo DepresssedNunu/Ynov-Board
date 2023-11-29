@@ -10,7 +10,7 @@ using Ynov.Data.Contexts;
 
 namespace Ynov.Data.Migrations
 {
-    [DbContext(typeof(BoardDbContext))]
+    [DbContext(typeof(TrellodDbContext))]
     partial class BoardDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace Ynov.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<long?>("LabelId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -66,7 +69,7 @@ namespace Ynov.Data.Migrations
                     b.Property<int?>("Priority")
                         .HasColumnType("integer");
 
-                    b.Property<long?>("userId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -74,6 +77,26 @@ namespace Ynov.Data.Migrations
                     b.HasIndex("BoardId");
 
                     b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("Ynov.Business.Models.Label", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Labels");
                 });
 
             modelBuilder.Entity("Ynov.Business.Models.User", b =>

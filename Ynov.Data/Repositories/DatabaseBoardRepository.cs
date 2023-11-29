@@ -8,11 +8,11 @@ namespace Ynov.Data.Repositories;
 
 public class DatabaseBoardRepository : IBoardRepository
 {
-    private readonly BoardDbContext _context;
+    private readonly TrellodDbContext _context;
 
-    public DatabaseBoardRepository(BoardDbContext boardDbContext)
+    public DatabaseBoardRepository(TrellodDbContext trellodDbContext)
     {
-        _context = boardDbContext;
+        _context = trellodDbContext;
     }
 
     public List<Board> Get()
