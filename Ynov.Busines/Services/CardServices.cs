@@ -23,7 +23,6 @@ public class CardServices : ICardServices
     public BusinessResult<List<Card>> Get()
     {
         List<Card> cards = _cardRepository.Get();
-
         return BusinessResult<List<Card>>.FromSuccess(cards);
     }
 
@@ -47,9 +46,8 @@ public class CardServices : ICardServices
         {
             return BusinessResult<Card>.FromError($"The board {card.BoardId} do not exist, card cannot be created.", BusinessErrorReason.NotFound);
         }
-        
+        card.CreationDate = DateTime.UtcNow;
         card = _cardRepository.Add(card, board);
-
         return BusinessResult<Card>.FromSuccess(card);
     }
 

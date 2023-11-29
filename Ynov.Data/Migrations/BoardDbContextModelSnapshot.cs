@@ -79,6 +79,53 @@ namespace Ynov.Data.Migrations
                     b.ToTable("Cards");
                 });
 
+            modelBuilder.Entity("Ynov.Business.Models.Checklist", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CardId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.ToTable("Checklists");
+                });
+
+            modelBuilder.Entity("Ynov.Business.Models.ChecklistItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChecklistId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChecklistId");
+
+                    b.ToTable("ChecklistsItems");
+                });
+
             modelBuilder.Entity("Ynov.Business.Models.Label", b =>
                 {
                     b.Property<long>("Id")
@@ -138,9 +185,37 @@ namespace Ynov.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ynov.Business.Models.Checklist", b =>
+                {
+                    b.HasOne("Ynov.Business.Models.Card", null)
+                        .WithMany("Checklists")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ynov.Business.Models.ChecklistItem", b =>
+                {
+                    b.HasOne("Ynov.Business.Models.Checklist", null)
+                        .WithMany("ChecklistItems")
+                        .HasForeignKey("ChecklistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Ynov.Business.Models.Board", b =>
                 {
                     b.Navigation("CardList");
+                });
+
+            modelBuilder.Entity("Ynov.Business.Models.Card", b =>
+                {
+                    b.Navigation("Checklists");
+                });
+
+            modelBuilder.Entity("Ynov.Business.Models.Checklist", b =>
+                {
+                    b.Navigation("ChecklistItems");
                 });
 #pragma warning restore 612, 618
         }

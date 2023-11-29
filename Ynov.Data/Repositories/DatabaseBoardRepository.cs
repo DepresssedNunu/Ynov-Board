@@ -18,12 +18,19 @@ public class DatabaseBoardRepository : IBoardRepository
 
     public List<Board> Get()
     {
-        return _context.Boards.Include(b => b.CardList).ToList();
+        return _context.Boards
+            .Include(b => b.CardList)
+            .ThenInclude(c => c.Checklists)
+            .ThenInclude(ch => ch.ChecklistItems)
+            .ToList();
     }
 
     public Board? Get(long id)
     {
-        return _context.Boards.Include(b => b.CardList)
+        return _context.Boards
+            .Include(b => b.CardList)
+            .ThenInclude(c => c.Checklists)
+            .ThenInclude(ch => ch.ChecklistItems)
             .FirstOrDefault(b => b.Id == id);
     }
 

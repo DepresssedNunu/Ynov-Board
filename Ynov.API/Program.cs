@@ -32,12 +32,16 @@ builder.Services.AddScoped<ICardServices, CardServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ILabelServices, LabelServices>();
 builder.Services.AddScoped<IPasswordServices, PasswordServices>();
+builder.Services.AddScoped<IChecklistServices, ChecklistServices>();
+builder.Services.AddScoped<IChecklistItemServices, ChecklistItemServices>();
 
 // Repositories
 builder.Services.AddScoped<IBoardRepository, DatabaseBoardRepository>();
 builder.Services.AddScoped<ICardRepository, DatabaseCardRepository>();
 builder.Services.AddScoped<IUserRepository, DatabaseUserRepository>();
 builder.Services.AddScoped<ILabelRepository, DatabaseLabelRepository>();
+builder.Services.AddScoped<IChecklistItemRepository, DatabaseChecklistItemRepository>();
+builder.Services.AddScoped<IChecklistRepository, DatabaseChecklistRepository>();
 
 var app = builder.Build();
 

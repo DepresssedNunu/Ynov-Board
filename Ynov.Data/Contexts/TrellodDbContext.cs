@@ -13,6 +13,8 @@ public class TrellodDbContext : DbContext
     public DbSet<Card> Cards { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Label> Labels { get; set; } = null!;
+    public DbSet<Checklist> Checklists { get; set; } = null!;
+    public DbSet<ChecklistItem> ChecklistsItems { get; set; } = null!;
     
     
 

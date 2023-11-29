@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Ynov.Business.DTOitem;
 using Ynov.Business.IRespositories;
 using Ynov.Business.Models;
@@ -16,17 +17,22 @@ public class DatabaseCardRepository : ICardRepository
 
     public List<Card> Get()
     {
-        return _context.Cards.ToList();
+        return _context.Cards
+            .Include(c => c.Checklists)
+            .ThenInclude(ch => ch.ChecklistItems)
+            .ToList();
     }
 
     public Card? Get(long id)
     {
-        return _context.Cards.FirstOrDefault(card => card.Id == id);
+        return _context.Cards
+            .Include(c => c.Checklists)
+            .ThenInclude(ch => ch.ChecklistItems)
+            .FirstOrDefault(card => card.Id == id);
     }
 
     public Card Add(Card card, Board board)
     {
-        card.CreationDate = DateTime.UtcNow;
         board.CardList.Add(card);
         _context.Cards.Add(card);
         _context.SaveChanges();
