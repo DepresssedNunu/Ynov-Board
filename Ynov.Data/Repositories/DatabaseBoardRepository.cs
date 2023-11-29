@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Ynov.Business.DTOitem;
+using Ynov.Business.Exceptions;
 using Ynov.Business.IRespositories;
 using Ynov.Business.Models;
 using Ynov.Data.Contexts;
@@ -51,8 +52,27 @@ public class DatabaseBoardRepository : IBoardRepository
         _context.SaveChanges();
     }
 
-    public Board? Sort(Board board, SortValues query)
+    public Board? Sort(Board board, SortValues sortQuery)
     {
-        throw new NotImplementedException();
+        switch (sortQuery)
+        {
+            case SortValues.DateAscending:
+                board.CardList = board.CardList.OrderBy(c => c.CreationDate).ToList();
+                break;
+            case SortValues.DateDescending:
+                board.CardList = board.CardList.OrderByDescending(c => c.CreationDate).ToList();
+                break;
+            case SortValues.TitleAscending:
+                board.CardList = board.CardList.OrderBy(c => c.Name).ToList();
+                break;
+            case SortValues.TitleDescending:
+                board.CardList = board.CardList.OrderByDescending(c => c.Name).ToList();
+                break;
+            default:
+                throw new InvalidSortQueryException("Invalid sort value");
+        }
+
+        return board;
     }
+
 }

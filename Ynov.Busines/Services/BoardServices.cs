@@ -4,6 +4,7 @@ using Ynov.Business.IServices;
 using Ynov.Business.Models;
 
 using System.Collections.Generic;
+using Ynov.Business.Exceptions;
 
 namespace Ynov.Business.Services;
 
@@ -77,11 +78,13 @@ public class BoardServices : IBoardServices
             return BusinessResult<Board>.FromError($"The board {id} do not exist", BusinessErrorReason.NotFound);
         }
 
-        board = _boardRepository.Sort(board, query);
-
-        if (board is null)
+        try
         {
-            return BusinessResult<Board>.FromError($"The query do not exists", BusinessErrorReason.BusinessRule);
+            board = _boardRepository.Sort(board, query);
+        }
+        catch (InvalidSortQueryException e)
+        {
+            return BusinessResult<Board>.FromError($"The search value {query} is invalid.", BusinessErrorReason.BusinessRule);
         }
         
         return BusinessResult<Board>.FromSuccess(board);
