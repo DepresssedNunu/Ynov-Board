@@ -35,3 +35,4 @@ public record AssignCardLabelDto
 ( 
     long LabelId
 );
+
