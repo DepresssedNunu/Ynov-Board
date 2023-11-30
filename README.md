@@ -2,6 +2,6 @@
 
 A Trello Clone API in .NET
 
-To install the project, simply clone the project and connect your db in the Progam.cs file. 
+To install the project, simply clone it and configure your database connection in the `Program.cs` file.
 
-We use the DotNetEnv to support the .env files. We recommend you to add the connection string of your database in this file ( we use PostgreSQL database here )
+We utilize DotNetEnv to handle `.env` files. It's recommended to add your database connection string to this file (we're using a PostgreSQL database in this case).
