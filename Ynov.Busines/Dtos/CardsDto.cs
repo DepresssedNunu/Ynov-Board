@@ -33,5 +33,5 @@ public record AssignCardUserDto
 
 public record AssignCardLabelDto
 ( 
-    long labelId
+    long LabelId
 );

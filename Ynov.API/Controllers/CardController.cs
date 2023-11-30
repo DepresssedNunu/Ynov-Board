@@ -264,7 +264,7 @@ public class CardController : ControllerBase
     {
         Label label = new()
         {
-            Id = dto.labelId
+            Id = dto.LabelId
         };
         
         
