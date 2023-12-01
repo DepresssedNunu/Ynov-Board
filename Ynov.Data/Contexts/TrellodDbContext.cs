@@ -15,15 +15,13 @@ public class TrellodDbContext : DbContext
     public DbSet<Label> Labels { get; set; } = null!;
     public DbSet<Checklist> Checklists { get; set; } = null!;
     public DbSet<ChecklistItem> ChecklistsItems { get; set; } = null!;
-    
-    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
-        
+
         modelBuilder.Entity<Label>()
             .HasIndex(l => l.Name)
             .IsUnique();
