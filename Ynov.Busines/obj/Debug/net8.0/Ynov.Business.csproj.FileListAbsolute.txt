@@ -1,0 +1,15 @@
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/bin/Debug/net8.0/Ynov.Business.deps.json
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/bin/Debug/net8.0/Ynov.Business.runtimeconfig.json
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/bin/Debug/net8.0/Ynov.Business.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/bin/Debug/net8.0/Ynov.Business.pdb
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.csproj.AssemblyReference.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.GeneratedMSBuildEditorConfig.editorconfig
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.AssemblyInfoInputs.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.AssemblyInfo.cs
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.csproj.CoreCompileInputs.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.sourcelink.json
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/refint/Ynov.Business.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.pdb
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/Ynov.Business.genruntimeconfig.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Busines/obj/Debug/net8.0/ref/Ynov.Business.dll

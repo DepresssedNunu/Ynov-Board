@@ -55,8 +55,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles(); // Enable serving static files
+
+app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Fallback route to serve index.html from React app
+app.MapFallbackToFile("index.html");
 
 app.Run();

@@ -1,0 +1,30 @@
+﻿<Properties>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Repositories/DatabaseBoardRepository.cs">
+    <Files>
+      <File FileName="Ynov.Data/obj/Ynov.Data.csproj.EntityFrameworkCore.targets" Line="1" Column="1" />
+      <File FileName="Repositories/DatabaseBoardRepository.cs" Line="2" Column="14" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Ynov.Data">
+            <Node name="Ynov.Data">
+              <Node name="Repositories" expanded="True">
+                <Node name="DatabaseBoardRepository.cs" selected="True" />
+              </Node>
+              <Node name="Ynov.Data" expanded="True">
+                <Node name="obj" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>

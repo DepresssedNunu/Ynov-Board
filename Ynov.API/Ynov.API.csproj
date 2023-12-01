@@ -29,4 +29,8 @@
       <ProjectReference Include="..\Ynov.Data\Ynov.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
+
 </Project>

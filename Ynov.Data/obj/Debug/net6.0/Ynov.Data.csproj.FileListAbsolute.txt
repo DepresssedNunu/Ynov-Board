@@ -1,0 +1,16 @@
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/bin/Debug/net6.0/Ynov.Data.deps.json
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/bin/Debug/net6.0/Ynov.Data.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/bin/Debug/net6.0/Ynov.Data.pdb
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/bin/Debug/net6.0/Ynov.Business.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/bin/Debug/net6.0/Ynov.Business.pdb
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.csproj.AssemblyReference.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.AssemblyInfoInputs.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.AssemblyInfo.cs
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.csproj.CoreCompileInputs.cache
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.sourcelink.json
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.csproj.CopyComplete
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/refint/Ynov.Data.dll
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/Ynov.Data.pdb
+/Users/flo/Desktop/ynov/C#/Ynov-Board/Ynov.Data/obj/Debug/net6.0/ref/Ynov.Data.dll
